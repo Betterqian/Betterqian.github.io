@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018/11 | 刘谦的博客</title>
+  <title>刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="论文-《基于HDFS的云数据备份系统》学习 背景浅析目前较常见的网络数据备份系统按架构不同可分为： 基于网络附加存储结构 基于局域网结构 基于SAN结构的LAN-Free结构和Server-Free结构  云存储的特点 1：提供完整的数据存储服务，用户可得到只能的备份软件及管理完善的存储容量； 2：云存储仅对数据进行备份，用户不必担心失去对原始数据的控制； 3：云存储服务具有价格上的优势，备份相同">
+<meta property="og:type" content="article">
 <meta property="og:title" content="刘谦的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2018/11/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/11/19/论文学习_基于HDFS的云数据存储系统/index.html">
 <meta property="og:site_name" content="刘谦的博客">
+<meta property="og:description" content="论文-《基于HDFS的云数据备份系统》学习 背景浅析目前较常见的网络数据备份系统按架构不同可分为： 基于网络附加存储结构 基于局域网结构 基于SAN结构的LAN-Free结构和Server-Free结构  云存储的特点 1：提供完整的数据存储服务，用户可得到只能的备份软件及管理完善的存储容量； 2：云存储仅对数据进行备份，用户不必担心失去对原始数据的控制； 3：云存储服务具有价格上的优势，备份相同">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-19T08:31:48.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="刘谦的博客">
+<meta name="twitter:description" content="论文-《基于HDFS的云数据备份系统》学习 背景浅析目前较常见的网络数据备份系统按架构不同可分为： 基于网络附加存储结构 基于局域网结构 基于SAN结构的LAN-Free结构和Server-Free结构  云存储的特点 1：提供完整的数据存储服务，用户可得到只能的备份软件及管理完善的存储容量； 2：云存储仅对数据进行备份，用户不必担心失去对原始数据的控制； 3：云存储服务具有价格上的优势，备份相同">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -150,97 +154,158 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-论文学习_基于HDFS的云数据存储系统" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="论文-《基于HDFS的云数据备份系统》学习"><a href="#论文-《基于HDFS的云数据备份系统》学习" class="headerlink" title="论文-《基于HDFS的云数据备份系统》学习"></a>论文-《基于HDFS的云数据备份系统》学习</h1><hr>
+<h2 id="背景浅析"><a href="#背景浅析" class="headerlink" title="背景浅析"></a>背景浅析</h2><h3 id="目前较常见的网络数据备份系统按架构不同可分为："><a href="#目前较常见的网络数据备份系统按架构不同可分为：" class="headerlink" title="目前较常见的网络数据备份系统按架构不同可分为："></a>目前较常见的网络数据备份系统按架构不同可分为：</h3><ul>
+<li>基于网络附加存储结构</li>
+<li>基于局域网结构</li>
+<li>基于SAN结构的LAN-Free结构和Server-Free结构</li>
+</ul>
+<h3 id="云存储的特点"><a href="#云存储的特点" class="headerlink" title="云存储的特点"></a>云存储的特点</h3><ul>
+<li>1：提供完整的数据存储服务，用户可得到只能的备份软件及管理完善的存储容量；</li>
+<li>2：云存储仅对数据进行备份，用户不必担心失去对原始数据的控制；</li>
+<li>3：云存储服务具有价格上的优势，备份相同规模的数据，云存储所需的费用比购置存储设备建立数据中心成本低很多；</li>
+</ul>
+<h3 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h3><p>Hadoop是Apache下的一个开源云计算基础软件项目，目前已得到广泛应用。Hadoop的基础组件HDFS（hadoop distributed file system），是模仿Google的GFS设计思路开发的专门针对廉价硬件设计的分布式文件系统，在软件层内置数据容错能力，可应用于云存储系统的创建开发，与现有的分布式系统最大区别为高容错性和低成本。</p>
+<h2 id="HB-CDBS"><a href="#HB-CDBS" class="headerlink" title="HB-CDBS"></a>HB-CDBS</h2><h3 id="HB-CDBS构成："><a href="#HB-CDBS构成：" class="headerlink" title="HB-CDBS构成："></a>HB-CDBS构成：</h3><ul>
+<li>客户端</li>
+<li>备份服务器</li>
+<li>HDFS集群</li>
+</ul>
+<p>！【HB-CDBS】(Paper/HB-CDBS.png)</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/19/论文学习_基于HDFS的云数据存储系统/" class="archive-article-date">
-  	<time datetime="2018-11-19T08:31:48.210Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/19/论文学习_基于HDFS的云数据存储系统/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/17/scu/" class="archive-article-date">
-  	<time datetime="2018-11-17T14:10:51.596Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/17/scu/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">四川大学简介</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/17/scu/">四川大学简介</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/17/hello-world/" class="archive-article-date">
-  	<time datetime="2018-11-17T11:18:20.930Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/17/hello-world/">Hello LiuQian</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -263,8 +328,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
