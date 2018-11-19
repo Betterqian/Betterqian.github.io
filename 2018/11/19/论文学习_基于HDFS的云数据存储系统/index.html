@@ -19,8 +19,8 @@
 <meta property="og:image" content="http://yoursite.com/2018/11/19/论文学习_基于HDFS的云数据存储系统/Backup%20and%20Restore%20process%20of%20client.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/19/论文学习_基于HDFS的云数据存储系统/备份信息数据字段.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/19/论文学习_基于HDFS的云数据存储系统/阈值.png">
-<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/小文件分别上传下载与打包上传下载的比较.png">
-<meta property="og:updated_time" content="2018-11-19T09:55:23.382Z">
+<meta property="og:image" content="http://yoursite.com/2018/11/19/论文学习_基于HDFS的云数据存储系统/小文件分别上传下载与打包上传下载的比较.png">
+<meta property="og:updated_time" content="2018-11-19T10:00:42.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="论文-《基于HDFS的云数据备份系统》学习">
 <meta name="twitter:description" content="背景浅析目前较常见的网络数据备份系统按架构不同可分为： 基于网络附加存储结构 基于局域网结构 基于SAN结构的LAN-Free结构和Server-Free结构  云存储的特点 1：提供完整的数据存储服务，用户可得到只能的备份软件及管理完善的存储容量； 2：云存储仅对数据进行备份，用户不必担心失去对原始数据的控制； 3：云存储服务具有价格上的优势，备份相同规模的数据，云存储所需的费用比购置存储设备建">
@@ -158,36 +158,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="背景浅析"><a href="#背景浅析" class="headerlink" title="背景浅析"></a>背景浅析</h2><h3 id="目前较常见的网络数据备份系统按架构不同可分为："><a href="#目前较常见的网络数据备份系统按架构不同可分为：" class="headerlink" title="目前较常见的网络数据备份系统按架构不同可分为："></a>目前较常见的网络数据备份系统按架构不同可分为：</h3><ul>
+        <h3 id="背景浅析"><a href="#背景浅析" class="headerlink" title="背景浅析"></a>背景浅析</h3><h4 id="目前较常见的网络数据备份系统按架构不同可分为："><a href="#目前较常见的网络数据备份系统按架构不同可分为：" class="headerlink" title="目前较常见的网络数据备份系统按架构不同可分为："></a>目前较常见的网络数据备份系统按架构不同可分为：</h4><ul>
 <li>基于网络附加存储结构</li>
 <li>基于局域网结构</li>
 <li>基于SAN结构的LAN-Free结构和Server-Free结构</li>
 </ul>
-<h3 id="云存储的特点"><a href="#云存储的特点" class="headerlink" title="云存储的特点"></a>云存储的特点</h3><ul>
+<h4 id="云存储的特点"><a href="#云存储的特点" class="headerlink" title="云存储的特点"></a>云存储的特点</h4><ul>
 <li>1：提供完整的数据存储服务，用户可得到只能的备份软件及管理完善的存储容量；</li>
 <li>2：云存储仅对数据进行备份，用户不必担心失去对原始数据的控制；</li>
 <li>3：云存储服务具有价格上的优势，备份相同规模的数据，云存储所需的费用比购置存储设备建立数据中心成本低很多；</li>
 </ul>
-<h3 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h3><p>Hadoop是Apache下的一个开源云计算基础软件项目，目前已得到广泛应用。Hadoop的基础组件HDFS（hadoop distributed file system），是模仿Google的GFS设计思路开发的专门针对廉价硬件设计的分布式文件系统，在软件层内置数据容错能力，可应用于云存储系统的创建开发，与现有的分布式系统最大区别为高容错性和低成本。</p>
-<h2 id="HB-CDBS"><a href="#HB-CDBS" class="headerlink" title="HB-CDBS"></a>HB-CDBS</h2><h3 id="HB-CDBS构成："><a href="#HB-CDBS构成：" class="headerlink" title="HB-CDBS构成："></a>HB-CDBS构成：</h3><ul>
+<h4 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h4><p>Hadoop是Apache下的一个开源云计算基础软件项目，目前已得到广泛应用。Hadoop的基础组件HDFS（hadoop distributed file system），是模仿Google的GFS设计思路开发的专门针对廉价硬件设计的分布式文件系统，在软件层内置数据容错能力，可应用于云存储系统的创建开发，与现有的分布式系统最大区别为高容错性和低成本。</p>
+<h3 id="HB-CDBS"><a href="#HB-CDBS" class="headerlink" title="HB-CDBS"></a>HB-CDBS</h3><h4 id="HB-CDBS构成："><a href="#HB-CDBS构成：" class="headerlink" title="HB-CDBS构成："></a>HB-CDBS构成：</h4><ul>
 <li>客户端</li>
 <li>备份服务器</li>
 <li>HDFS集群</li>
 </ul>
 <p><img src="/论文学习_基于HDFS的云数据存储系统/HB-CDBS.png" alt="HB-CDBS"></p>
-<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><h4 id="客户端文件备份恢复过程"><a href="#客户端文件备份恢复过程" class="headerlink" title="客户端文件备份恢复过程"></a>客户端文件备份恢复过程</h4><p><img src="/2018/11/19/论文学习_基于HDFS的云数据存储系统/Backup and Restore process of client.png" alt="客户端备份恢复过程"></p>
-<h3 id="备份服务器"><a href="#备份服务器" class="headerlink" title="备份服务器"></a>备份服务器</h3><h4 id="备份数据信息表"><a href="#备份数据信息表" class="headerlink" title="备份数据信息表"></a>备份数据信息表</h4><p><img src="/2018/11/19/论文学习_基于HDFS的云数据存储系统/备份信息数据字段.png" alt="备份信息数据字段"></p>
-<h4 id="上传算法CDUA（cloud-data-upload-algorithm）"><a href="#上传算法CDUA（cloud-data-upload-algorithm）" class="headerlink" title="上传算法CDUA（cloud data upload algorithm）"></a>上传算法CDUA（cloud data upload algorithm）</h4><p>CDUA 算法先检测文件大小是否大于等于阈值，是则上传该文件到HDFS集群，上传成功后将文件备份数据信息表中对应的上传标志位置为真，填写上传文件名(客户端上传文件名称相同)，删除备份服务器上的文件。否则读取备份文件信息表，得到所有未上传备份文件的信息，计算全部未上传文件的大小，若大于等于阈值，则将所有未上传文件打包成一个文件，按照“文件名 1-文件 2-…-文件名 n”的方式对该文件命名；如果全部为上传文件大小依然小于阈值，则退出。</p>
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><h5 id="客户端文件备份恢复过程"><a href="#客户端文件备份恢复过程" class="headerlink" title="客户端文件备份恢复过程"></a>客户端文件备份恢复过程</h5><p><img src="/2018/11/19/论文学习_基于HDFS的云数据存储系统/Backup and Restore process of client.png" alt="客户端备份恢复过程"></p>
+<h4 id="备份服务器"><a href="#备份服务器" class="headerlink" title="备份服务器"></a>备份服务器</h4><h5 id="备份数据信息表"><a href="#备份数据信息表" class="headerlink" title="备份数据信息表"></a>备份数据信息表</h5><p><img src="/2018/11/19/论文学习_基于HDFS的云数据存储系统/备份信息数据字段.png" alt="备份信息数据字段"></p>
+<h5 id="上传算法CDUA-cloud-data-upload-algorithm"><a href="#上传算法CDUA-cloud-data-upload-algorithm" class="headerlink" title="上传算法CDUA(cloud data upload algorithm)"></a>上传算法CDUA(cloud data upload algorithm)</h5><p>CDUA 算法先检测文件大小是否大于等于阈值，是则上传该文件到HDFS集群，上传成功后将文件备份数据信息表中对应的上传标志位置为真，填写上传文件名(客户端上传文件名称相同)，删除备份服务器上的文件。否则读取备份文件信息表，得到所有未上传备份文件的信息，计算全部未上传文件的大小，若大于等于阈值，则将所有未上传文件打包成一个文件，按照“文件名 1-文件 2-…-文件名 n”的方式对该文件命名；如果全部为上传文件大小依然小于阈值，则退出。</p>
 <p><img src="/2018/11/19/论文学习_基于HDFS的云数据存储系统/阈值.png" alt="阈值表达式"></p>
 <p>〖hdfs〗_size为 HDFS 集群存储空间大小； cc_n为客户端集群个数;为 HDFS 集群中数据备份副本的个数；rp_n为默认集群中客户节点个数；c_n为可分配给客户端的存储块数； λ 为调节系数。</p>
-<h4 id="备份服务器作为客户端与备份集群的桥梁"><a href="#备份服务器作为客户端与备份集群的桥梁" class="headerlink" title="备份服务器作为客户端与备份集群的桥梁"></a>备份服务器作为客户端与备份集群的桥梁</h4><ul>
+<h5 id="备份服务器作为客户端与备份集群的桥梁"><a href="#备份服务器作为客户端与备份集群的桥梁" class="headerlink" title="备份服务器作为客户端与备份集群的桥梁"></a>备份服务器作为客户端与备份集群的桥梁</h5><ul>
 <li>1：备份服务器可屏蔽客户端对备份集群的直接访问，从而提高备份集群的安全性，同时在备份服<br>务器和客户端间通过防火墙、安全信道等技术实现数据安全，进而保证整个系统的安全;</li>
 <li>2：备份服务器可暂存数据，并根据备份集群的负载和网络状况决定在合适的时间上传数据，从而保证备份集群的负载平衡;</li>
 <li>3：虽然在特殊情况下，备份服务器由于大量客户端的备份/恢复请求可能成为系统的瓶颈，但通过应用高性能的服务器作为备份服务器及客户端的合理调度可最大限度地避免该情况发生;</li>
 <li>4：向HDFS集群上传、下载文件需要在计算机上安装Hadoop特定组件，这对数量众多、水平参差不齐的客户实现较难，通过在备份服务器上收集用户需备份的数据，并在其上安装Hadoop组件易于实现备份、恢复功能，可充分发挥HDFS的功能。</li>
 </ul>
-<h3 id="HDFS集群"><a href="#HDFS集群" class="headerlink" title="HDFS集群"></a>HDFS集群</h3><p>采用Master/Slave结构，由一个Namenode和一定数量的Datanodes组成。Nameno-de作为中心服务器负责管理文件系统的名字空间(namespace)及客户对文件的访问。Namenode由云中具有较高性能的服务器配置而成。DataNode用于存储数据，由大量廉价计算机配置而成，并可根据备份数据的规模进行动态扩展。备份时文件被分成一个或多个数据块，这些块存储在一组Datanode上。Datanode负责对文件系统客户端的读写请求进行处理，并在Namenode统一调度下进行数据块的创建、删除和复制等操作。</p>
-<h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><h4 id="小文件分别上传下载与打包上传下载的比较"><a href="#小文件分别上传下载与打包上传下载的比较" class="headerlink" title="小文件分别上传下载与打包上传下载的比较"></a>小文件分别上传下载与打包上传下载的比较</h4><p><img src="/论文学习_基于HDFS的云数据存储系统/小文件分别上传下载与打包上传下载的比较.png" alt="小文件分别上传下载与打包上传下载的比较"></p>
+<h4 id="HDFS集群"><a href="#HDFS集群" class="headerlink" title="HDFS集群"></a>HDFS集群</h4><p>采用Master/Slave结构，由一个Namenode和一定数量的Datanodes组成。Nameno-de作为中心服务器负责管理文件系统的名字空间(namespace)及客户对文件的访问。Namenode由云中具有较高性能的服务器配置而成。DataNode用于存储数据，由大量廉价计算机配置而成，并可根据备份数据的规模进行动态扩展。备份时文件被分成一个或多个数据块，这些块存储在一组Datanode上。Datanode负责对文件系统客户端的读写请求进行处理，并在Namenode统一调度下进行数据块的创建、删除和复制等操作。</p>
+<h4 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h4><h5 id="小文件分别上传下载与打包上传下载的比较"><a href="#小文件分别上传下载与打包上传下载的比较" class="headerlink" title="小文件分别上传下载与打包上传下载的比较"></a>小文件分别上传下载与打包上传下载的比较</h5><p><img src="/2018/11/19/论文学习_基于HDFS的云数据存储系统/小文件分别上传下载与打包上传下载的比较.png" alt="小文件分别上传下载与打包上传下载的比较"></p>
 <p><em>无论是上传和下载，对小文件打包的策略都极大节约了相应操作的时间，充分应用了HDFS系统的特性。</em></p>
 
       
