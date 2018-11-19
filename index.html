@@ -166,8 +166,8 @@
 <li>备份服务器</li>
 <li>HDFS集群</li>
 </ul>
-<p><a href="论文学习_基于HDFS的云数据存储系统/HB-CDBS.png">HB-CDBS</a></p>
-<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><h4 id="客户端文件备份恢复过程"><a href="#客户端文件备份恢复过程" class="headerlink" title="客户端文件备份恢复过程"></a>客户端文件备份恢复过程</h4><p><a href="https:// qianmaoo.github.io/论文学习_基于HDFS的云数据存储系统/Backup and Restore process of client.png" target="_blank" rel="noopener">客户端备份恢复过程</a></p>
+<p><img src="/2018/11/19/论文学习_基于HDFS的云数据存储系统/HB-CDBS.png" alt="HB-CDBS"></p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><h4 id="客户端文件备份恢复过程"><a href="#客户端文件备份恢复过程" class="headerlink" title="客户端文件备份恢复过程"></a>客户端文件备份恢复过程</h4><p><a href="论文学习_基于HDFS的云数据存储系统/Backup and Restore process of client.png">客户端备份恢复过程</a></p>
 <h3 id="备份服务器"><a href="#备份服务器" class="headerlink" title="备份服务器"></a>备份服务器</h3><h4 id="备份数据信息表"><a href="#备份数据信息表" class="headerlink" title="备份数据信息表"></a>备份数据信息表</h4><p><a href="论文学习_基于HDFS的云数据存储系统/备份信息数据字段.png">备份信息数据字段</a></p>
 <h4 id="上传算法CDUA（cloud-data-upload-algorithm）"><a href="#上传算法CDUA（cloud-data-upload-algorithm）" class="headerlink" title="上传算法CDUA（cloud data upload algorithm）"></a>上传算法CDUA（cloud data upload algorithm）</h4><p>CDUA 算法先检测文件大小是否大于等于阈值，是则上传该文件到HDFS集群，上传成功后将文件备份数据信息表中对应的上传标志位置为真，填写上传文件名(客户端上传文件名称相同)，删除备份服务器上的文件。否则读取备份文件信息表，得到所有未上传备份文件的信息，计算全部未上传文件的大小，若大于等于阈值，则将所有未上传文件打包成一个文件，按照“文件名 1-文件 2-…-文件名 n”的方式对该文件命名；如果全部为上传文件大小依然小于阈值，则退出。</p>
 <p><a href="论文学习_基于HDFS的云数据存储系统/阈值.png">阈值表达式</a><br> 〖hdfs〗_size为 HDFS 集群存储空间大小； cc_n为客户端集群个数;为 HDFS 集群中数据备份副本的个数；rp_n为默认集群中客户节点个数；c_n为可分配给客户端的存储块数； λ 为调节系数。</p>
