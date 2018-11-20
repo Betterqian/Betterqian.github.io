@@ -17,7 +17,7 @@
 <meta property="og:description" content="本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/名称节点.png">
-<meta property="og:updated_time" content="2018-11-20T14:02:08.803Z">
+<meta property="og:updated_time" content="2018-11-20T14:14:37.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="水文-《Hadoop的两大核心技术HDFS和MapReduce》">
 <meta name="twitter:description" content="本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。">
@@ -167,25 +167,15 @@
       
         <p>本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。</p>
 <a id="more"></a>
-<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>Hadoop 是 Apache 基金会旗下的开源分布式计算平台，为用户提供了系统底层透明的分布式基础架构，随着大数据相关技术的发展，Hadoop 已发展成为众多子项目的集合。</p>
+<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>Hadoop 是 Apache 基金会旗下的开源分布式计算平台，为用户提供了系统底层透明的分布式基础架构，随着大数据相关技术的发展，Hadoop 已发展成为众多子项目的集合。HDFS 是 Hadoop 集群中最基础的部分，提供了大规模的数据存储能力；MapReduce 将对数据的处理封装为 Map 和 Reduce 两个函数，实现了对大规模数据的处理。</p>
+<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>HDFS（Hadoop Distributed File System）是Hadoop中的分布式文件系统，是对 Google的GFS（Google File System）的开源实现。HDFS的设计思想是“<em>一次写入，多次读取</em>”，将大规模数据切分成Block数据块进行存储，简单的系统设计使得HDFS只能完成数据的写入和读取，不能对数据进行修改，利用大量的廉价硬件设备实现并行读写和大规模数据存储。HDFS采用主从设计结构，通常一个 HDFS 集群中包含一个<em>名称节点（NameNode）</em> 和若干个<em>数据节点（DataNode）</em>。<br><img src="/论文学习_基于HDFS的云数据存储系统/名称节点.png" alt="名称节点"></p>
+<p>名称节点负责管理文件系统的命名空间，它保存了FsImage 和 EditLog 两个核心的数据结构,记录了每个数据块所存储的数据节点的位置信息，但是每次系统重启时会重新加载这些信息并动态更改和保存这些信息。 FsImage记录了所有数据节点中文件的元数据信息，EditLog 作为系统日志文件保存了所有针对文件的各种操作信息。FsImage 中的信息会在名称节点启动时将其加载到内存中，然后执行EditLog 中所保存的操作信息使得内存中的元数据信息一直保持最新状态。<br>数据节点主要负责对数据的存储和读取，根据客户端或名称节点的调度完成对数据的存储和查询，并定期将自己所保存的数据块的信息发送给名称节点。每个数据节点中的数据会被保存在各自节点的本地 Linux 文件系统中。</p>
+<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>Hadoop框架中的 MapReduce是对谷歌公司的MapReduce的开源实现，是为了解决大规模数据的高效处理问题，将运行在大规模集群上的并行计算过程高度地抽象成两个函数：Map和 Reduce。<br></p>
 <ul>
-<li>HDFS 是 Hadoop 集群中最基础的部分，提供了大规模的数据存储能力；</li>
-<li>MapReduce 将对数据的处理封装为 Map 和 Reduce 两个函数，实现了对大规模数据的处理；</li>
-</ul>
-<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>HDFS（Hadoop Distributed File System）是Hadoop中的分布式文件系统，是对 Google的GFS（Google File System）的开源实现。HDFS 的一个最重要的设计思想是“<strong>一次写入，多次读取</strong>”访问方式，将大规模数据切分成Block数据块进行存储，简单的系统设计使得HDFS只能完成数据的写入和读取，不能对数据进行修改，利用大量的廉价硬件设备实现并行读写和大规模数据存储。HDFS采用主从设计结构，通常一个 HDFS 集群中包含一个<strong>名称节点</strong>（NameNode）和若干个 <strong>数据节点</strong>（DataNode）。</p>
-<p><img src="/论文学习_基于HDFS的云数据存储系统/名称节点.png" alt="名称节点"></p>
-<p>名称节点负责管理文件系统的命名空间，它保存了FsImage 和 EditLog 两个核心的数据结构,记录了每个数据块所存储的数据节点的位置信息，但是每次系统重启时会重新加载这些信息并动态更改和保存这些信息。 FsImage记录了所有数据节点中文件的元数据信息，EditLog 作为系统日志文件保存了所有针对文件的各种操作信息。FsImage 中的信息会在名称节点启动时将其加载到内存中，然后执行EditLog 中所保存的操作信息使得内存中的元数据信息一直保持最新状态。</p>
-<p>数据节点主要负责对数据的存储和读取，根据客户端或名称节点的调度完成对数据的存储和查询，并定期将自己所保存的数据块的信息发送给名称节点。每个数据节点中的数据会被保存在各自节点的本地 Linux 文件系统中。</p>
-<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>Hadoop框架中的 MapReduce是对谷歌公司的MapReduce的开源实现，是为了解决大规模数据的高效处理问题，将运行在大规模集群上的并行计算过程高度地抽象成两个函数：Map和 Reduce。</p>
-<ul>
-<li><p>MapReduce将存储在分布式文件系统中的大规模数据集切分成许多独立的分片（split），这些分片可以被多个Map任务并行处理。</p>
-</li>
-<li><p>MapReduce 设计理念：<strong>计算向数据靠拢</strong>，减少了网络传输开销。</p>
-</li>
-<li><p>MapReduce分布式并行编程使程序员只关注Map和Reduce 函数的实现，分布式存储、工作调度、负载均衡等问题均由 MapReduce框架进行处理。</p>
-</li>
-<li><p>Map和Reduce函数都是以键值对的形式作为输入，按照一定的映射规则再通过键值对进行输出。Map函数的输入来自分布式文件系统的文件块，可以是二进制文件也可以是文档文件，Map函数将其输入按照规则转换为键值对，键和值的类型是任意的，键并不能作为唯一标识，一个Map任务也可以生成多个相同键的键值对。Reduce 函数就是将输入的具有多个相同键的键值对以某种方式组合起来，输出处理后的键值对，将输入结果合并成一个文件。</p>
-</li>
+<li>MapReduce将存储在分布式文件系统中的大规模数据集切分成许多独立的分片（split），这些分片可以被多个Map任务并行处理。</li>
+<li>MapReduce 设计理念：<em>计算向数据靠拢</em>，减少了网络传输开销。</li>
+<li>MapReduce分布式并行编程使程序员只关注Map和Reduce 函数的实现，分布式存储、工作调度、负载均衡等问题均由 MapReduce框架进行处理。</li>
+<li>Map和Reduce函数都是以键值对的形式作为输入，按照一定的映射规则再通过键值对进行输出。Map函数的输入来自分布式文件系统的文件块，可以是二进制文件也可以是文档文件，Map函数将其输入按照规则转换为键值对，键和值的类型是任意的，键并不能作为唯一标识，一个Map任务也可以生成多个相同键的键值对。Reduce 函数就是将输入的具有多个相同键的键值对以某种方式组合起来，输出处理后的键值对，将输入结果合并成一个文件。</li>
 </ul>
 
       
@@ -293,7 +283,7 @@
   
   
     <a href="/2018/11/19/论文学习_基于HDFS的云数据存储系统/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">论文-《基于HDFS的云数据备份系统》学习</div>
+      <div class="article-nav-title">论文学习-《基于HDFS的云数据备份系统》</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -449,11 +439,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
             
             <div class="clearfix"></div>
