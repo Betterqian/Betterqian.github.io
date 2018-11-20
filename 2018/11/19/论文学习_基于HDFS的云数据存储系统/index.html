@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/11/19/论文学习_基于HDFS的云数据存储系统/备份信息数据字段.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/19/论文学习_基于HDFS的云数据存储系统/阈值.png">
 <meta property="og:image" content="http://yoursite.com/2018/11/19/论文学习_基于HDFS的云数据存储系统/小文件分别上传下载与打包上传下载的比较.png">
-<meta property="og:updated_time" content="2018-11-19T14:25:01.920Z">
+<meta property="og:updated_time" content="2018-11-20T06:09:45.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="论文-《基于HDFS的云数据备份系统》学习">
 <meta name="twitter:description" content="背景浅析目前较常见的网络数据备份系统按架构不同可分为： 基于网络附加存储结构 基于局域网结构 基于SAN结构的LAN-Free结构和Server-Free结构">
@@ -54,7 +54,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/assets/head.jpeg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">刘谦</a></h1>
@@ -65,10 +65,6 @@
 			<ul>
 			
 				<li><a href="/">主   页</a></li>
-	        
-				<li><a href="/">HDFS</a></li>
-	        
-				<li><a href="/tags/随笔/">随   笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -88,6 +84,12 @@
 		<nav class="header-nav">
 			<div class="social">
 				
+					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+		        
 			</div>
 		</nav>
 	</header>		
@@ -104,7 +106,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/assets/head.jpeg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">刘谦</h1>
@@ -114,27 +116,25 @@
 			
 				
 			
-				
-			
-				
-			
 			
 			
 			<nav class="header-nav">
 				<div class="social">
 					
+						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+			        
 				</div>
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 70%">
+				<ul style="width: 50%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/">主   页</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/">HDFS</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/tags/随笔/">随   笔</a></li>
+					<li style="width: 100%"><a href="/">主   页</a></li>
 		        
 				</ul>
 			</nav>
@@ -325,6 +325,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景浅析"><span class="toc-number">1.</span> <span class="toc-text">背景浅析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#目前较常见的网络数据备份系统按架构不同可分为："><span class="toc-number">1.1.</span> <span class="toc-text">目前较常见的网络数据备份系统按架构不同可分为：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#云存储的特点"><span class="toc-number">1.2.</span> <span class="toc-text">云存储的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HDFS简介"><span class="toc-number">1.3.</span> <span class="toc-text">HDFS简介</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HB-CDBS"><span class="toc-number">2.</span> <span class="toc-text">HB-CDBS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HB-CDBS构成："><span class="toc-number">2.1.</span> <span class="toc-text">HB-CDBS构成：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端"><span class="toc-number">2.2.</span> <span class="toc-text">客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#客户端文件备份恢复过程"><span class="toc-number">2.2.1.</span> <span class="toc-text">客户端文件备份恢复过程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#备份服务器"><span class="toc-number">2.3.</span> <span class="toc-text">备份服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#备份数据信息表"><span class="toc-number">2.3.1.</span> <span class="toc-text">备份数据信息表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#上传算法CDUA-cloud-data-upload-algorithm"><span class="toc-number">2.3.2.</span> <span class="toc-text">上传算法CDUA(cloud data upload algorithm)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#备份服务器作为客户端与备份集群的桥梁"><span class="toc-number">2.3.3.</span> <span class="toc-text">备份服务器作为客户端与备份集群的桥梁</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HDFS集群"><span class="toc-number">2.4.</span> <span class="toc-text">HDFS集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#性能测试"><span class="toc-number">2.5.</span> <span class="toc-text">性能测试</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小文件分别上传下载与打包上传下载的比较"><span class="toc-number">2.5.1.</span> <span class="toc-text">小文件分别上传下载与打包上传下载的比较</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -448,11 +461,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
             
             <div class="clearfix"></div>
