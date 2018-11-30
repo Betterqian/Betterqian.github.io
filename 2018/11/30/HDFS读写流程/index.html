@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018/11 | 刘谦的博客</title>
+  <title>HDFS 读写流程 | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个机智的菜鸟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘谦的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2018/11/index.html">
+  <meta name="description" content="block、packet 和 chunk block  文件被划分为多个分块作为独立的存储单元，分块大小默认为64MB，很多情况下为128MB。">
+<meta name="keywords" content="HDFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDFS 读写流程">
+<meta property="og:url" content="http://yoursite.com/2018/11/30/HDFS读写流程/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="一个机智的菜鸟">
+<meta property="og:description" content="block、packet 和 chunk block  文件被划分为多个分块作为独立的存储单元，分块大小默认为64MB，很多情况下为128MB。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_写流程.png">
+<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_写流程（2）.png">
+<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_读流程（2）.png">
+<meta property="og:updated_time" content="2018-11-30T13:20:42.659Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刘谦的博客">
-<meta name="twitter:description" content="一个机智的菜鸟">
+<meta name="twitter:title" content="HDFS 读写流程">
+<meta name="twitter:description" content="block、packet 和 chunk block  文件被划分为多个分块作为独立的存储单元，分块大小默认为64MB，很多情况下为128MB。">
+<meta name="twitter:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_写流程.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -143,36 +149,108 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-HDFS读写流程" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      HDFS 读写流程
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/30/HDFS读写流程/" class="archive-article-date">
+
+        
+        <a href="/2018/11/30/HDFS读写流程/" class="archive-article-date">
   	<time datetime="2018-11-30T12:01:12.493Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-30</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/30/HDFS读写流程/">HDFS 读写流程</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="block、packet-和-chunk"><a href="#block、packet-和-chunk" class="headerlink" title="block、packet 和 chunk"></a>block、packet 和 chunk</h2><blockquote>
+<p>block</p>
+</blockquote>
+<p>文件被划分为多个分块作为独立的存储单元，分块大小默认为64MB，很多情况下为128MB。</p>
+<a id="more"></a>
+<blockquote>
+<p>packet</p>
+</blockquote>
+<p>client端向DataNode，或DataNode的PipLine之间传数据的基本单位，默认64KB。</p>
+<blockquote>
+<p>chunk</p>
+</blockquote>
+<p>client端向DataNode，或DataNode的PipLine之间进行数据校验的基本单位，默认512Byte。</p>
+<h2 id="HDFS-写流程"><a href="#HDFS-写流程" class="headerlink" title="HDFS 写流程"></a>HDFS 写流程</h2><blockquote>
+<p>客户端要向HDFS写数据,首先要和namenode进行通信来获得接受文件块(block)的datanode,然后客户端将按顺序将block逐个传到响应的datanode上,并由接收block的datanode负责像其他的datanode复制block的副本。</p>
+</blockquote>
+<h4 id="写过程通俗示意图"><a href="#写过程通俗示意图" class="headerlink" title="写过程通俗示意图"></a>写过程通俗示意图</h4><p><img src="/论文学习_基于HDFS的云数据存储系统/HDFS_写流程.png" alt="HDFS写数据流程"></p>
+<h4 id="写过程详细步骤"><a href="#写过程详细步骤" class="headerlink" title="写过程详细步骤"></a>写过程详细步骤</h4><p><img src="/论文学习_基于HDFS的云数据存储系统/HDFS_写流程（2）.png" alt="HDFS写数据流程2"></p>
+<blockquote>
+<p>以下步骤不全对应上图标号</p>
+</blockquote>
+<p><strong>1、客户端向NameNode请求上传文件。</strong></p>
+<p><em>客户端调用DistributedFileSystem API的create方法向NameNode请求上传文件（告知文件名、文件大小、文件拥有者）。【RPC请求】</em></p>
+<p><strong>2、NameNode响应：可以上传。</strong></p>
+<p><em>NameNode检查目标文件、父目录是否存在，检查权限。若通过检查，底层调用ClientProtocal.create()方法在NameNode的文件系统目录树中创建一个空文件，并将此操作写入Editlog，返回FSDataOutputStream对象，该对象被封装成DFSOutputStream。</em></p>
+<p><strong>3、客户端将数据写到DFSOutputStream。</strong></p>
+<p><em>DFSOutputStream把数据切成一个个packet，然后排成队列data queue。</em></p>
+<p><strong>4、客户端向NameNode请求第一个数据块。</strong></p>
+<p><em>DataStreamer负责读取data queue，首先DFSOutputStream调用ClientProtocal.addBlock向NameNode申请数据块。</em></p>
+<p><strong>5、NameNode返回该数据块节点信息。</strong></p>
+<p><em>NameNode返回LocatedBlock对象，该对象保存了这个数据块所有的DataNode位置信息，该信息可用于建立数据流管道</em></p>
+<p><strong>6、写数据。</strong></p>
+<p><em>DataStreamer按data queue队列顺序把packet输出到第一个data1,并将该packet保存在一个ack queue。data1存储这个packet后再传递到pipeline的data2,以此类推。最后一个datanode成功存储后逆序返回一个ack packet（确认包）至客户端，客户端成功收到确认包后从ack queue中移除相应的packet。</em></p>
+<p><strong>7、写入完成。</strong></p>
+<p><em>当block传输完成后，datanode报告给namenode存储的块信息，同时告诉客户端写入成功；</em></p>
+<p><strong>8、客户端再次请求NameNode上传第二个block的服务器（重复执行3-7步）</strong></p>
+<p><em>完成数据写入后，会对数据流调用close()方法，关闭数据流。</em></p>
+<p>注意：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">datanode切片是由客户端完成；</span><br><span class="line">datanode第二三个副本的上传和第一个副本的上传是异步；</span><br><span class="line">传输过程中若某个datanode出现故障，当前pipeline会关闭，故障节点从当前pipeline中移除，Namenode会分配一个新的datanode;</span><br></pre></td></tr></table></figure></p>
+<h2 id="HDFS-读流程"><a href="#HDFS-读流程" class="headerlink" title="HDFS 读流程"></a>HDFS 读流程</h2><blockquote>
+<p>客户端要向HDFS写数据,首先要和namenode进行通信来获得需要读取文件的元信息(主要是block的存放文件位置信息),客户端根据获取的信息找到相应的datanode逐个获取文件的block并在客户端本地进行数据追加合并从而获得整个文件.</p>
+</blockquote>
+<h4 id="读过程示意图"><a href="#读过程示意图" class="headerlink" title="读过程示意图"></a>读过程示意图</h4><p><img src="/论文学习_基于HDFS的云数据存储系统/HDFS_读流程（2）.png" alt="HDFS读文件流程"></p>
+<h4 id="写过程详细步骤-1"><a href="#写过程详细步骤-1" class="headerlink" title="写过程详细步骤"></a>写过程详细步骤</h4><p><strong>1、    客户端Client向Namenode发起RPC请求下载文件；</strong></p>
+<p><strong>2、    Namenode会视情况返回文件的部分或者全部block列表，对于每个block，Namenode都会返回有该block拷贝的DataNode地址；</strong></p>
+<p><strong>3、    客户端Client会选取离客户端最近的DataNode请求建立连接，请求建立socket；</strong></p>
+<p><em>如果客户端本身就是DataNode， 那么将从本地直接获取数据。</em></p>
+<p><strong>4、    Datanode从磁盘读取数据放入流传输给客户端，以packet为单位做校验；</strong></p>
+<p><strong>5、    客户端以packet为单位接收，先在本地缓存，然后写入目标文件；</strong></p>
+<p><em>后面的block追加合并到这个文件，合成最终需要的文件</em></p>
+<p><strong>6、    读取完当前block的数据后，关闭当前的DataNode连接，并为读取下一个block寻找最佳的DataNode；</strong></p>
+<p><strong>7、    读取完一个block都会进行checksum验证；</strong></p>
+<p><em>如果读取datanode时出现错误，客户端会通知Namenode，然后再从下一个拥有该block拷贝的datanode继续读</em></p>
+<p><strong>8、    当读完列表block后，若文件读取还没有结束，客户端会继续向Namenode获取下一批的block列表。</strong></p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -184,133 +262,119 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/30/HDFS读写流程/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/26/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/" class="archive-article-date">
-  	<time datetime="2018-11-26T06:15:06.263Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/26/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">论文学习-《Hadoop的两大核心技术HDFS和MapReduce》</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/26/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/">论文学习-《Hadoop的两大核心技术HDFS和MapReduce》</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#block、packet-和-chunk"><span class="toc-number">1.</span> <span class="toc-text">block、packet 和 chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS-写流程"><span class="toc-number">2.</span> <span class="toc-text">HDFS 写流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#写过程通俗示意图"><span class="toc-number">2.0.1.</span> <span class="toc-text">写过程通俗示意图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#写过程详细步骤"><span class="toc-number">2.0.2.</span> <span class="toc-text">写过程详细步骤</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS-读流程"><span class="toc-number">3.</span> <span class="toc-text">HDFS 读流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#读过程示意图"><span class="toc-number">3.0.1.</span> <span class="toc-text">读过程示意图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#写过程详细步骤-1"><span class="toc-number">3.0.2.</span> <span class="toc-text">写过程详细步骤</span></a></li></ol></li>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/21/HDFS架构浅析/" class="archive-article-date">
-  	<time datetime="2018-11-21T06:51:17.048Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-21</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/21/HDFS架构浅析/">HDFS 架构浅析</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/19/论文学习_基于HDFS的云数据存储系统/" class="archive-article-date">
-  	<time datetime="2018-11-19T08:31:48.210Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/19/论文学习_基于HDFS的云数据存储系统/">论文学习-《基于HDFS的云数据备份系统》</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -333,8 +397,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
