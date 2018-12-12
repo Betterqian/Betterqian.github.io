@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: HDFS | 刘谦的博客</title>
+  <title>Hadoop1.0和Hadoop2.0 | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个机智的菜鸟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘谦的博客">
-<meta property="og:url" content="http://yoursite.com/tags/HDFS/index.html">
+  <meta name="description" content="Hadoop1.0 Hadoop1.0即第一代Hadoop，指的是版本为Apache Hadoop 0.20.x、1.x或者CDH3系列的Hadoop，内核主要由HDFS和MapReduce两个系统组成，其中MapReduce是一个离线处理框架，由编程模型（新旧API）、运行时环境（JobTracker和TaskTracker）和数据处理引擎（MapTask和ReduceTask）三部分组成。">
+<meta name="keywords" content="Hadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop1.0和Hadoop2.0">
+<meta property="og:url" content="http://yoursite.com/2018/12/12/Hadoop1.0与Hadoop2.0版本对比/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="一个机智的菜鸟">
+<meta property="og:description" content="Hadoop1.0 Hadoop1.0即第一代Hadoop，指的是版本为Apache Hadoop 0.20.x、1.x或者CDH3系列的Hadoop，内核主要由HDFS和MapReduce两个系统组成，其中MapReduce是一个离线处理框架，由编程模型（新旧API）、运行时环境（JobTracker和TaskTracker）和数据处理引擎（MapTask和ReduceTask）三部分组成。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/hadoop.jpg">
+<meta property="og:updated_time" content="2018-12-12T03:29:37.926Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刘谦的博客">
-<meta name="twitter:description" content="一个机智的菜鸟">
+<meta name="twitter:title" content="Hadoop1.0和Hadoop2.0">
+<meta name="twitter:description" content="Hadoop1.0 Hadoop1.0即第一代Hadoop，指的是版本为Apache Hadoop 0.20.x、1.x或者CDH3系列的Hadoop，内核主要由HDFS和MapReduce两个系统组成，其中MapReduce是一个离线处理框架，由编程模型（新旧API）、运行时环境（JobTracker和TaskTracker）和数据处理引擎（MapTask和ReduceTask）三部分组成。">
+<meta name="twitter:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/hadoop.jpg">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -143,174 +147,193 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Hadoop1.0与Hadoop2.0版本对比" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hadoop1.0和Hadoop2.0
+    </h1>
+  
+
+        
+        <a href="/2018/12/12/Hadoop1.0与Hadoop2.0版本对比/" class="archive-article-date">
+  	<time datetime="2018-12-12T03:20:52.279Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Hadoop1-0"><a href="#Hadoop1-0" class="headerlink" title="Hadoop1.0"></a>Hadoop1.0</h3><blockquote>
+<p>Hadoop1.0即第一代Hadoop，指的是版本为Apache Hadoop 0.20.x、1.x或者CDH3系列的Hadoop，内核主要由HDFS和MapReduce两个系统组成，其中MapReduce是一个离线处理框架，由编程模型（新旧API）、运行时环境（JobTracker和TaskTracker）和数据处理引擎（MapTask和ReduceTask）三部分组成。<br><a id="more"></a></p>
+</blockquote>
+<h3 id="Hadoop1-0存在的问题"><a href="#Hadoop1-0存在的问题" class="headerlink" title="Hadoop1.0存在的问题"></a>Hadoop1.0存在的问题</h3><h4 id="HDFS存在的问题："><a href="#HDFS存在的问题：" class="headerlink" title="HDFS存在的问题："></a>HDFS存在的问题：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NameNode单点故障，难以应用于在线场景</span><br><span class="line">NameNode压力过大，且内存受限，影响系统扩展性</span><br></pre></td></tr></table></figure>
+<h4 id="MapReduce存在的问题"><a href="#MapReduce存在的问题" class="headerlink" title="MapReduce存在的问题"></a>MapReduce存在的问题</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JobTracker访问压力大，影响系统扩展性</span><br><span class="line">难以支持除MapReduce之外的计算框架，比如Spark、Storm等</span><br></pre></td></tr></table></figure>
+<h3 id="Hadoop2-0"><a href="#Hadoop2-0" class="headerlink" title="Hadoop2.0"></a>Hadoop2.0</h3><blockquote>
+<p>Hadoop2.0即第二代Hadoop，指的是版本为Apache Hadoop 0.23.x、2.x或者CDH4系列的Hadoop，内核主要由HDFS、MapReduce和YARN三个系统组成，其中YARN是一个资源管理系统，负责集群资源管理和调度，MapReduce则是运行在YARN上的离线处理框架，它与Hadoop 1.0中的MapReduce在编程模型（新旧API）和数据处理引擎（MapTask和ReduceTask）两个方面是相同的。</p>
+</blockquote>
+<h3 id="Hadoop1-0和Hadoop2-0架构"><a href="#Hadoop1-0和Hadoop2-0架构" class="headerlink" title="Hadoop1.0和Hadoop2.0架构"></a>Hadoop1.0和Hadoop2.0架构</h3><p><img src="/论文学习_基于HDFS的云数据存储系统/hadoop.jpg" alt="HB-CDBS"></p>
+<h3 id="Hadoop1-0和Hadoop2-0的区别"><a href="#Hadoop1-0和Hadoop2-0的区别" class="headerlink" title="Hadoop1.0和Hadoop2.0的区别"></a>Hadoop1.0和Hadoop2.0的区别</h3><h4 id="从-Hadoop-整体框架角度"><a href="#从-Hadoop-整体框架角度" class="headerlink" title="从 Hadoop 整体框架角度"></a>从 Hadoop 整体框架角度</h4><p>Hadoop2.0为克服Hadoop1.0中的不足进行了下面改进：</p>
+<p>1、针对Hadoop1.0单NameNode制约HDFS的扩展性问题，提出HDFS Federation，它让多个NameNode分管不同的目录进而实现访问隔离和横向扩展，同时彻底解决了NameNode单点故障问题；<br>2、针对Hadoop1.0中的MapReduce在扩展性和多框架支持等方面的不足，它将JobTracker中的资源管理和作业控制分开，分别由ResourceManager（负责所有应用程序的资源分配）和ApplicationMaster（负责管理一个应用程序）实现，即引入了资源管理框架Yarn。<br>3、Yarn作为Hadoop2.0中的资源管理系统，它是一个通用的资源管理模块，可为各类应用程序进行资源管理和调度，不仅限于MapReduce一种框架，也可以为其他框架使用，如Tez、Spark、Storm等。</p>
+<h4 id="从-MapReduce-计算框架角度"><a href="#从-MapReduce-计算框架角度" class="headerlink" title="从 MapReduce 计算框架角度"></a>从 MapReduce 计算框架角度</h4><p>MapReduce1.0计算框架主要由三部分组成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">编程模型</span><br><span class="line">数据处理引擎</span><br><span class="line">运行时环境</span><br></pre></td></tr></table></figure></p>
+<p>它的基本编程模型是将问题抽象成Map和Reduce两个阶段，其中Map阶段将输入的数据解析成key/value，迭代调用map()函数处理后，再以key/value的形式输出到本地目录，Reduce阶段将key相同的value进行规约处理，并将最终结果写到HDFS上；它的数据处理引擎由MapTask和ReduceTask组成，分别负责Map阶段逻辑和Reduce阶段的逻辑处理；它的运行时环境由一个JobTracker和若干个TaskTracker两类服务组成，其中JobTracker负责资源管理和所有作业的控制，TaskTracker负责接收来自JobTracker的命令并执行它。</p>
+<p>MapReducer2.0具有与MRv1相同的编程模型和数据处理引擎，唯一不同的是运行时环境。MRv2是在MRv1基础上经加工之后，运行于资源管理框架Yarn之上的计算框架MapReduce。它的运行时环境不再由JobTracker和TaskTracker等服务组成，而是变为通用资源管理系统Yarn和作业控制进程ApplicationMaster，其中Yarn负责资源管理的调度而ApplicationMaster负责作业的管理。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/01/HDFS读写流程/" class="archive-article-date">
-  	<time datetime="2018-11-30T16:53:58.464Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/01/HDFS读写流程/">HDFS 读写流程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/12/12/Hadoop1.0与Hadoop2.0版本对比/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/21/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/" class="archive-article-date">
-  	<time datetime="2018-11-21T11:04:14.440Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-21</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/01/HDFS读写流程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HDFS 读写流程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/21/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/">论文学习-《Hadoop的两大核心技术HDFS和MapReduce》</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop1-0"><span class="toc-number">1.</span> <span class="toc-text">Hadoop1.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop1-0存在的问题"><span class="toc-number">2.</span> <span class="toc-text">Hadoop1.0存在的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HDFS存在的问题："><span class="toc-number">2.1.</span> <span class="toc-text">HDFS存在的问题：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MapReduce存在的问题"><span class="toc-number">2.2.</span> <span class="toc-text">MapReduce存在的问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop2-0"><span class="toc-number">3.</span> <span class="toc-text">Hadoop2.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop1-0和Hadoop2-0架构"><span class="toc-number">4.</span> <span class="toc-text">Hadoop1.0和Hadoop2.0架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop1-0和Hadoop2-0的区别"><span class="toc-number">5.</span> <span class="toc-text">Hadoop1.0和Hadoop2.0的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#从-Hadoop-整体框架角度"><span class="toc-number">5.1.</span> <span class="toc-text">从 Hadoop 整体框架角度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从-MapReduce-计算框架角度"><span class="toc-number">5.2.</span> <span class="toc-text">从 MapReduce 计算框架角度</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/21/HDFS架构浅析/" class="archive-article-date">
-  	<time datetime="2018-11-21T11:04:14.409Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-21</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/21/HDFS架构浅析/">HDFS 架构浅析</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/19/论文学习_基于HDFS的云数据存储系统/" class="archive-article-date">
-  	<time datetime="2018-11-19T15:08:08.268Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/19/论文学习_基于HDFS的云数据存储系统/">论文学习-《基于HDFS的云数据备份系统》</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -333,9 +356,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
