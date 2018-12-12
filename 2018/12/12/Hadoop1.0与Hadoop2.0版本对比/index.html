@@ -17,7 +17,7 @@
 <meta property="og:description" content="Hadoop1.0 Hadoop1.0即第一代Hadoop，指的是版本为Apache Hadoop 0.20.x、1.x或者CDH3系列的Hadoop，内核主要由HDFS和MapReduce两个系统组成，其中HDFS由一个NameNode和多个DataNode组成，MapReduce是一个离线处理框架，由编程模型（新旧API）、运行时环境（一个JobTracker和多个TaskTracker）和数">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/hadoop.jpg">
-<meta property="og:updated_time" content="2018-12-12T10:12:16.549Z">
+<meta property="og:updated_time" content="2018-12-12T10:25:33.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop1.0和Hadoop2.0">
 <meta name="twitter:description" content="Hadoop1.0 Hadoop1.0即第一代Hadoop，指的是版本为Apache Hadoop 0.20.x、1.x或者CDH3系列的Hadoop，内核主要由HDFS和MapReduce两个系统组成，其中HDFS由一个NameNode和多个DataNode组成，MapReduce是一个离线处理框架，由编程模型（新旧API）、运行时环境（一个JobTracker和多个TaskTracker）和数">
@@ -181,6 +181,9 @@
 <h4 id="从-MapReduce-计算框架角度"><a href="#从-MapReduce-计算框架角度" class="headerlink" title="从 MapReduce 计算框架角度"></a>从 MapReduce 计算框架角度</h4><p>MapReduce1.0计算框架主要由三部分组成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">编程模型（新旧API）</span><br><span class="line">数据处理引擎（一个MapTask和多个ReduceTask）</span><br><span class="line">运行时环境(一个Jobtracker和多个TaskTracker)</span><br></pre></td></tr></table></figure></p>
 <p>它的基本编程模型是将问题抽象成Map和Reduce两个阶段，其中Map阶段将输入的数据解析成key/value，迭代调用map()函数处理后，再以key/value的形式输出到本地目录，Reduce阶段将key相同的value进行规约处理，并将最终结果写到HDFS上；它的数据处理引擎由MapTask和ReduceTask组成，分别负责Map阶段逻辑和Reduce阶段的逻辑处理；它的运行时环境由一个JobTracker和若干个TaskTracker两类服务组成，其中JobTracker负责资源管理和所有作业的控制，TaskTracker负责接收来自JobTracker的命令并执行它。</p>
 <p>MapReducer2.0具有与MRv1相同的编程模型和数据处理引擎，唯一不同的是运行时环境。MRv2是在MRv1基础上经加工之后，运行于资源管理框架Yarn之上的MRv1。它的运行时环境不再由JobTracker和TaskTracker等服务组成，而是变为通用资源管理系统Yarn和作业控制进程ApplicationMaster，其中Yarn负责资源管理的调度而ApplicationMaster负责作业的管理。</p>
+<blockquote>
+<p>后续将是Hadoop1.0和Hadoop2.0资源管理的差异</p>
+</blockquote>
 
       
 
