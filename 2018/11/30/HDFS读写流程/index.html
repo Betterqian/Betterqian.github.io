@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_写流程.png">
 <meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_写流程（2）.png">
 <meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_读流程（2）.png">
-<meta property="og:updated_time" content="2018-11-30T13:31:23.810Z">
+<meta property="og:updated_time" content="2018-12-26T03:35:02.419Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HDFS 读写流程">
 <meta name="twitter:description" content="block、packet 和 chunk block  文件被划分为多个分块作为独立的存储单元，分块大小默认为64MB，很多情况下为128MB。  packet  client端向DataNode，或DataNode的PipLine之间传数据的基本单位，默认64KB。">
@@ -192,19 +192,19 @@
 <p><strong>1、客户端向NameNode请求上传文件。</strong></p>
 <p><em>客户端调用DistributedFileSystem API的create方法向NameNode请求上传文件（告知文件名、文件大小、文件拥有者）。【RPC请求】</em></p>
 <p><strong>2、NameNode响应：可以上传。</strong></p>
-<p><em>NameNode检查目标文件、父目录是否存在，检查权限。若通过检查，底层调用ClientProtocal.create()方法在NameNode的文件系统目录树中创建一个空文件，并将此操作写入Editlog，返回FSDataOutputStream对象，该对象被封装成DFSOutputStream。</em></p>
+<p><em>NameNode检查目标文件、父目录是否存在，检查权限。若通过检查，底层调用ClientProtocal.create()方法在NameNode的文件系统目录树中创建一个空文件，并将此操作写入Editlog，DistributedFileSystem通过FSDataOutputStream将相应的datanode list返回给Client。Client根据返回的datanode list来和DataNode进行交互操作；FSDataOutputStream将NameNode与DataNode间相互通信所需的对象进行封装。</em></p>
 <p><strong>3、客户端将数据写到DFSOutputStream。</strong></p>
-<p><em>DFSOutputStream把数据切成一个个packet，然后排成队列data queue。</em></p>
+<p><em>Client向DFSOutputSystem里写数据，DFSOutputStream把数据切成一个个packet，然后排成队列data queue。</em></p>
 <p><strong>4、客户端向NameNode请求第一个数据块。</strong></p>
 <p><em>DataStreamer负责读取data queue，首先DFSOutputStream调用ClientProtocal.addBlock向NameNode申请数据块。</em></p>
 <p><strong>5、NameNode返回该数据块节点信息。</strong></p>
-<p><em>NameNode返回LocatedBlock对象，该对象保存了这个数据块所有的DataNode位置信息，该信息可用于建立数据流管道</em></p>
+<p><em>NameNode返回LocatedBlock对象，该对象保存了这个数据块所有的DataNode位置信息，该信息可用于建立数据流管道pipeline</em></p>
 <p><strong>6、写数据。</strong></p>
-<p><em>DataStreamer按data queue队列顺序把packet输出到第一个data1,并将该packet保存在一个ack queue。data1存储这个packet后再传递到pipeline的data2,以此类推。最后一个datanode成功存储后逆序返回一个ack packet（确认包）至客户端，客户端成功收到确认包后从ack queue中移除相应的packet。</em></p>
+<p><em>DataStreamer按data queue队列顺序把packet输出到pipeline中第一个data1,并将该packet保存在一个ack queue。data1存储这个packet后再传递到pipeline的data2,以此类推。最后一个datanode成功存储后逆序返回一个ack packet（确认包）至客户端，客户端成功收到确认包后从ack queue中移除相应的packet。</em></p>
 <p><strong>7、写入完成。</strong></p>
 <p><em>当block传输完成后，datanode报告给namenode存储的块信息，同时告诉客户端写入成功；</em></p>
 <p><strong>8、客户端再次请求NameNode上传第二个block的服务器（重复执行3-7步）</strong></p>
-<p><em>完成数据写入后，会对数据流调用close()方法，关闭数据流。</em></p>
+<p><em>当客户端所有数据写完后，Client会调用close()方法，将Data queue中所有的数据块全部发送给pipeline。</em><br><em>当所有数据块都收到写入成功的反馈后，DistributedFileSystem向NameNode发出通知，文件已经写入完毕。</em></p>
 <p>注意：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">datanode切片是由客户端完成；</span><br><span class="line">datanode第二三个副本的上传和第一个副本的上传是异步；</span><br><span class="line">传输过程中若某个datanode出现故障，当前pipeline会关闭，故障节点从当前pipeline中移除，Namenode会分配一个新的datanode;</span><br></pre></td></tr></table></figure></p>
 <h2 id="HDFS-读流程"><a href="#HDFS-读流程" class="headerlink" title="HDFS 读流程"></a>HDFS 读流程</h2><blockquote>
 <p>客户端要向HDFS读数据,首先要和namenode进行通信来获得需要读取文件的元信息(主要是block的存放文件位置信息),客户端根据获取的信息找到相应的datanode逐个获取文件的block并在客户端本地进行数据追加合并从而获得整个文件.</p>
@@ -324,6 +324,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/12/13/Hadoop1.0与Hadoop2.0版本对比/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Hadoop1.0和Hadoop2.0
+        
+      </div>
+    </a>
   
   
     <a href="/2018/11/26/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/" id="article-nav-older" class="article-nav-link-wrap">
@@ -488,6 +497,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
               </li>
             
             <div class="clearfix"></div>
