@@ -165,31 +165,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="HDFS-写流程"><a href="#HDFS-写流程" class="headerlink" title="HDFS 写流程"></a>HDFS 写流程</h2><blockquote>
-<p>客户端要向HDFS写数据,首先要和namenode进行通信来获得接受文件块(block)的datanode,然后客户端将按顺序将block逐个传到响应的datanode上,并由接收block的datanode负责像其他的datanode复制block的副本。</p>
-</blockquote>
-<h4 id="写过程示意图"><a href="#写过程示意图" class="headerlink" title="写过程示意图"></a>写过程示意图</h4><p><img src="/论文学习_基于HDFS的云数据存储系统/HDFS_写流程.png" alt="HDFS写数据流程"></p>
-<h4 id="写过程详细步骤"><a href="#写过程详细步骤" class="headerlink" title="写过程详细步骤"></a>写过程详细步骤</h4><p><img src="/论文学习_基于HDFS的云数据存储系统/HDFS_写流程（2）.png" alt="HDFS写数据流程2"></p>
-<blockquote>
-<p>以下步骤不全对应上图标号</p>
-</blockquote>
-<p><strong>1、客户端向NameNode请求上传文件。</strong></p>
-<p><em>客户端调用DistributedFileSystem API的create方法开始创建新文件：DistributedFileSystem创建一个特定实例FSDataOutputStream，并产生一个RPC调用，向NameNode请求上传文件（告知文件名、文件大小、文件拥有者）。【RPC请求】</em></p>
-<p><strong>2、NameNode响应：可以上传。</strong></p>
-<p><em>NameNode接收到RPC请求后，检查请求建立的文件项（file entry）是否存在，检查操作权限。若通过检查，底层调用ClientProtocal.create()方法在NameNode的文件系统目录树中创建一个空文件，并将此操作写入Editlog，然后DistributedFileSystem将DFSOutputStream对象包装在FSDataOutputStream实例中返回给Client；否则文件创建失败并且给客户端抛IOException。（客户端取得文件状态后对文件申请租用：beginFileLease）</em></p>
-<p><strong>3、客户端将数据写到DFSOutputStream。</strong></p>
-<p><em>Client向DFSOutputSystem里写数据，DFSOutputStream把数据分割成packets数据包，然后排成队列data queue。</em></p>
-<p><img src="/论文学习_基于HDFS的云数据存储系统/HDFS_写流程分析.png" alt="HDFS写数据分析"></p>
-<p><strong>4、客户端向NameNode请求第一个数据块。</strong></p>
-<p><em>【数据流管控线程：DataStreamer负责数据的实际发送，定期检查读取data queue】，首先DFSOutputStream（DataStreamer）调用ClientProtocal.addBlock向NameNode申请数据块。</em></p>
-<p><strong>5、NameNode返回该数据块节点信息。</strong></p>
-<p><em>NameNode返回LocatedBlock对象（该对象保存了这个数据块所有的DataNode位置信息），初始化管道（setup pipeline）和发送流；当DataNode启动后，其内部的DataXceiverServer组件启动，此线程管理向其所属的DataNode发送数据的连接建立工作，新连接来时，DataXceiverServer会启动一个DataXceiver线程，此线程负责接收流向DataNode的数据。</em></p>
-<p><strong>6、写数据。</strong></p>
-<p><em>DataStreamer按data queue队列顺序把packets输出到pipeline中第一个data1,并将packets保存在写数据确认队列ack queue。data1接收到来自客户端的数据流【其内部DataXceiver组件通过读取操作类型（OP）来区分进行何种操作，如果OP是WRITE_BLOCK,调用写数据块的方法；此方法会根据数据源是客户端还是其他DataNode、块创建的阶段等条件进行不同的逻辑】，会再启动一个bolckReceiver线程，以接收实际的数据，在本地保存后再传递到pipeline的data2,以此类推。最后一个DataNode成功存储后逆序返回一个ack packet（确认包），客户端成功收到确认包后从ack queue中移除相应的packets。【数据流管控线程：ResponseProcessor负责接收处理传回的数据接收确认信息】</em></p>
-<p><strong>7、写入完成。</strong><br><em>当客户端所有数据写完后，Client会调用close()方法关闭写操作，刷新数据；</em></p>
-<p><strong>8、客户端再次请求NameNode上传第二个block的服务器（重复执行3-7步）</strong><br><em>当所有数据块都收到写入成功的反馈后，DistributedFileSystem向NameNode发送compliteFile请求，整个写操作完成。【Client调用leaseRenewer（LR）实例，从LR管理的续约文件表中删除此文件，表明不再更新租约，一段时间后，租约在NameNode自然失效】</em></p>
-<p>注意：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">datanode切片是由客户端完成；</span><br><span class="line">datanode第二三个副本的上传和第一个副本的上传是异步；</span><br><span class="line">传输过程中若某个datanode出现故障，当前pipeline会关闭，故障节点从当前pipeline中移除，Namenode会分配一个新的datanode;</span><br></pre></td></tr></table></figure></p>
-
+        <blockquote>
+<p>客户端要向HDFS写数据,首先要和namenode进行通信来获得接受文件块(block)的datanode,然后客户端将按顺序将block逐个传到响应的datanode上,并由接收block的datanode负责像其他的datanode复制block的副本。<br></p></blockquote>
+        
       
 
       
