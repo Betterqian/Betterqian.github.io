@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="刘谦的博客">
 <meta property="og:description" content="客户端要向HDFS写数据,首先要和namenode进行通信来获得接受文件块(block)的datanode,然后客户端将按顺序将block逐个传到响应的datanode上,并由接收block的datanode负责像其他的datanode复制block的副本。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_写流程.png">
-<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_写流程（2）.png">
-<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_写流程分析.png">
-<meta property="og:updated_time" content="2018-12-26T14:02:37.461Z">
+<meta property="og:image" content="http://yoursite.com/Blog_images/HDFS_写流程.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/HDFS_写流程（2）.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/HDFS_写流程分析.png">
+<meta property="og:updated_time" content="2018-12-27T11:57:55.521Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HDFS 写流程详解">
 <meta name="twitter:description" content="客户端要向HDFS写数据,首先要和namenode进行通信来获得接受文件块(block)的datanode,然后客户端将按顺序将block逐个传到响应的datanode上,并由接收block的datanode负责像其他的datanode复制block的副本。">
-<meta name="twitter:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/HDFS_写流程.png">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/HDFS_写流程.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -172,8 +172,8 @@
         <blockquote>
 <p>客户端要向HDFS写数据,首先要和namenode进行通信来获得接受文件块(block)的datanode,然后客户端将按顺序将block逐个传到响应的datanode上,并由接收block的datanode负责像其他的datanode复制block的副本。<br><a id="more"></a></p>
 </blockquote>
-<h4 id="写过程示意图"><a href="#写过程示意图" class="headerlink" title="写过程示意图"></a>写过程示意图</h4><p><img src="/论文学习_基于HDFS的云数据存储系统/HDFS_写流程.png" alt="HDFS写数据流程"></p>
-<h4 id="写过程详细步骤示意图"><a href="#写过程详细步骤示意图" class="headerlink" title="写过程详细步骤示意图"></a>写过程详细步骤示意图</h4><p><img src="/论文学习_基于HDFS的云数据存储系统/HDFS_写流程（2）.png" alt="HDFS写数据流程2"></p>
+<h4 id="写过程示意图"><a href="#写过程示意图" class="headerlink" title="写过程示意图"></a>写过程示意图</h4><p><img src="/Blog_images/HDFS_写流程.png" alt="HDFS写数据流程"></p>
+<h4 id="写过程详细步骤示意图"><a href="#写过程详细步骤示意图" class="headerlink" title="写过程详细步骤示意图"></a>写过程详细步骤示意图</h4><p><img src="/Blog_images/HDFS_写流程（2）.png" alt="HDFS写数据流程2"></p>
 <blockquote>
 <p>以下步骤对应上图标号</p>
 </blockquote>
@@ -183,7 +183,7 @@
 <p><em>NameNode接收到RPC请求后，检查请求建立的文件项（file entry）是否存在，检查操作权限。若通过检查，底层调用ClientProtocal.create()方法在NameNode的文件系统目录树中创建一个空文件，并将此操作写入Editlog，然后DistributedFileSystem将DFSOutputStream对象包装在FSDataOutputStream实例中返回给Client；否则文件创建失败并且给客户端抛IOException。（客户端取得文件状态后对文件申请租用：beginFileLease）</em></p>
 <p><strong>3、客户端将数据写到DFSOutputStream。</strong></p>
 <p><em>Client向DFSOutputSystem里写数据，DFSOutputStream把数据分割成packets数据包，然后排成队列data queue。</em></p>
-<p><strong>4、客户端向NameNode请求第一个数据块。</strong><br><img src="/论文学习_基于HDFS的云数据存储系统/HDFS_写流程分析.png" alt="HDFS写数据分析"><br><em>【数据流管控线程：DataStreamer负责数据的实际发送，定期检查读取data queue】，首先DFSOutputStream（DataStreamer）调用ClientProtocal.addBlock向NameNode申请数据块。</em></p>
+<p><strong>4、客户端向NameNode请求第一个数据块。</strong><br><img src="/Blog_images/HDFS_写流程分析.png" alt="HDFS写数据分析"><br><em>【数据流管控线程：DataStreamer负责数据的实际发送，定期检查读取data queue】，首先DFSOutputStream（DataStreamer）调用ClientProtocal.addBlock向NameNode申请数据块。</em></p>
 <p><strong>5、NameNode返回该数据块节点信息。</strong></p>
 <p><em>NameNode返回LocatedBlock对象（该对象保存了这个数据块所有的DataNode位置信息），初始化管道（setup pipeline）和发送流；当DataNode启动后，其内部的DataXceiverServer组件启动，此线程管理向其所属的DataNode发送数据的连接建立工作，新连接来时，DataXceiverServer会启动一个DataXceiver线程，此线程负责接收流向DataNode的数据。</em></p>
 <p><strong>6、写数据。</strong></p>
@@ -294,6 +294,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/12/27/HDFS读流程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          HDFS 读流程详解
+        
+      </div>
+    </a>
   
   
     <a href="/2018/12/13/Hadoop1.0与Hadoop2.0版本对比/" id="article-nav-older" class="article-nav-link-wrap">

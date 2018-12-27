@@ -145,6 +145,81 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-HDFS读流程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/27/HDFS读流程/">HDFS 读流程详解</a>
+    </h1>
+  
+
+        
+        <a href="/2018/12/27/HDFS读流程/" class="archive-article-date">
+  	<time datetime="2018-12-27T12:09:45.153Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>客户端要向HDFS读数据,首先要和namenode进行通信来获得需要读取文件的元信息(主要是block的存放文件位置信息),客户端根据获取的信息找到相应的datanode逐个获取文件的block并在客户端本地进行数据追加合并从而获得整个文件.<br></p></blockquote>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/12/27/HDFS读流程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-HDFS写流程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -266,87 +341,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/12/13/Hadoop1.0与Hadoop2.0版本对比/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-HDFS读写流程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/30/HDFS读写流程/">HDFS 读写流程</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/30/HDFS读写流程/" class="archive-article-date">
-  	<time datetime="2018-11-30T12:01:12.493Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="block、packet-和-chunk"><a href="#block、packet-和-chunk" class="headerlink" title="block、packet 和 chunk"></a>block、packet 和 chunk</h2><blockquote>
-<p>block</p>
-</blockquote>
-<p>文件被划分为多个分块作为独立的存储单元，分块大小默认为64MB，很多情况下为128MB。</p>
-<blockquote>
-<p>packet</p>
-</blockquote>
-<p>client端向DataNode，或DataNode的PipLine之间传数据的基本单位，默认64KB。<br></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/30/HDFS读写流程/">展开全文 >></a>
         </p>
       
 

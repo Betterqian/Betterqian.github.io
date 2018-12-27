@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="刘谦的博客">
 <meta property="og:description" content="本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/名称节点.png">
-<meta property="og:updated_time" content="2018-11-26T03:45:06.000Z">
+<meta property="og:image" content="http://yoursite.com/Blog_images/名称节点.png">
+<meta property="og:updated_time" content="2018-12-27T11:58:04.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="论文学习-《Hadoop的两大核心技术HDFS和MapReduce》">
 <meta name="twitter:description" content="本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。">
-<meta name="twitter:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/名称节点.png">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/名称节点.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -170,7 +170,7 @@
         <p>本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。</p>
 <a id="more"></a>
 <h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>Hadoop 是 Apache 基金会旗下的开源分布式计算平台，为用户提供了系统底层透明的分布式基础架构，随着大数据相关技术的发展，Hadoop 已发展成为众多子项目的集合。HDFS 是 Hadoop 集群中最基础的部分，提供了大规模的数据存储能力；MapReduce 将对数据的处理封装为 Map 和 Reduce 两个函数，实现了对大规模数据的处理。</p>
-<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>HDFS（Hadoop Distributed File System）是Hadoop中的分布式文件系统，是对 Google的GFS（Google File System）的开源实现。HDFS的设计思想是“<em>一次写入，多次读取</em>”，将大规模数据切分成Block数据块进行存储，简单的系统设计使得HDFS只能完成数据的写入和读取，不能对数据进行修改，利用大量的廉价硬件设备实现并行读写和大规模数据存储。HDFS采用主从设计结构，通常一个 HDFS 集群中包含一个<em>名称节点（NameNode）</em> 和若干个<em>数据节点（DataNode）</em>。<br><img src="/论文学习_基于HDFS的云数据存储系统/名称节点.png" alt="名称节点"></p>
+<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>HDFS（Hadoop Distributed File System）是Hadoop中的分布式文件系统，是对 Google的GFS（Google File System）的开源实现。HDFS的设计思想是“<em>一次写入，多次读取</em>”，将大规模数据切分成Block数据块进行存储，简单的系统设计使得HDFS只能完成数据的写入和读取，不能对数据进行修改，利用大量的廉价硬件设备实现并行读写和大规模数据存储。HDFS采用主从设计结构，通常一个 HDFS 集群中包含一个<em>名称节点（NameNode）</em> 和若干个<em>数据节点（DataNode）</em>。<br><img src="/Blog_images/名称节点.png" alt="名称节点"></p>
 <p>名称节点负责管理文件系统的命名空间，它保存了FsImage 和 EditLog 两个核心的数据结构,记录了每个数据块所存储的数据节点的位置信息，但是每次系统重启时会重新加载这些信息并动态更改和保存这些信息。 FsImage记录了所有数据节点中文件的元数据信息，EditLog 作为系统日志文件保存了所有针对文件的各种操作信息。FsImage 中的信息会在名称节点启动时将其加载到内存中，然后执行EditLog 中所保存的操作信息使得内存中的元数据信息一直保持最新状态。<br>数据节点主要负责对数据的存储和读取，根据客户端或名称节点的调度完成对数据的存储和查询，并定期将自己所保存的数据块的信息发送给名称节点。每个数据节点中的数据会被保存在各自节点的本地 Linux 文件系统中。</p>
 <h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>Hadoop框架中的 MapReduce是对谷歌公司的MapReduce的开源实现，是为了解决大规模数据的高效处理问题，将运行在大规模集群上的并行计算过程高度地抽象成两个函数：Map和 Reduce。<br></p>
 <ul>
@@ -283,11 +283,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/11/30/HDFS读写流程/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/12/13/Hadoop1.0与Hadoop2.0版本对比/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          HDFS 读写流程
+          Hadoop1.0和Hadoop2.0
         
       </div>
     </a>

@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="刘谦的博客">
 <meta property="og:description" content="随着学习深入，本博文将实时更新">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/namenode和datanode.png">
-<meta property="og:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/冗余namenode.jpg">
-<meta property="og:updated_time" content="2018-12-26T13:56:01.095Z">
+<meta property="og:image" content="http://yoursite.com/Blog_images/namenode和datanode.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/冗余namenode.jpg">
+<meta property="og:updated_time" content="2018-12-27T12:27:14.485Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HDFS 架构">
 <meta name="twitter:description" content="随着学习深入，本博文将实时更新">
-<meta name="twitter:image" content="http://yoursite.com/论文学习_基于HDFS的云数据存储系统/namenode和datanode.png">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/namenode和datanode.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -175,13 +175,22 @@
 <h3 id="设计理念"><a href="#设计理念" class="headerlink" title="设计理念"></a>设计理念</h3><blockquote>
 <p>一次写入，多次读取</p>
 </blockquote>
-<h3 id="分块存储"><a href="#分块存储" class="headerlink" title="分块存储"></a>分块存储</h3><blockquote>
-<p>文件被划分为多个分块作为独立的存储单元，分块大小默认为64MB，很多情况下为128MB（要比磁盘块的512比特大是为了最小化寻址开销）。</p>
+<h3 id="block、packet-和-chunk"><a href="#block、packet-和-chunk" class="headerlink" title="block、packet 和 chunk"></a>block、packet 和 chunk</h3><blockquote>
+<p>block</p>
 </blockquote>
-<h3 id="Namenode和Datanode节点"><a href="#Namenode和Datanode节点" class="headerlink" title="Namenode和Datanode节点"></a>Namenode和Datanode节点</h3><p><img src="/论文学习_基于HDFS的云数据存储系统/namenode和datanode.png" alt="HB-CDBS"></p>
+<p>文件被划分为多个分块作为独立的存储单元，分块大小默认为64MB，很多情况下为128MB（要比磁盘块的512比特大是为了最小化寻址开销）。</p>
+<blockquote>
+<p>packet</p>
+</blockquote>
+<p>client端向DataNode，或DataNode的PipLine之间传数据的基本单位，默认64KB。<br><!-- more--></p>
+<blockquote>
+<p>chunk</p>
+</blockquote>
+<p>client端向DataNode，或DataNode的PipLine之间进行数据校验的基本单位，默认512Byte。</p>
+<h3 id="Namenode和Datanode节点"><a href="#Namenode和Datanode节点" class="headerlink" title="Namenode和Datanode节点"></a>Namenode和Datanode节点</h3><p><img src="/Blog_images/namenode和datanode.png" alt="HB-CDBS"></p>
 <h3 id="文件写入-读取过程"><a href="#文件写入-读取过程" class="headerlink" title="文件写入/读取过程"></a>文件写入/读取过程</h3><p>写入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Client向namenode发起文件写入的请求。</span><br><span class="line">namenode根据文件大小和文件块配置情况，将它管理的datanode节点的信息返回给Client。</span><br><span class="line">Client 将文件划分为多个块，根据 datanode 的地址信息，按顺序写入到每一个datanode块中。</span><br></pre></td></tr></table></figure></p>
 <p>读取：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Client向namenode发起文件读取的请求。</span><br><span class="line">namenode返回存储文件的datanode的信息。</span><br><span class="line">Client读取文件信息。</span><br></pre></td></tr></table></figure></p>
-<h3 id="Namenode冗余备份"><a href="#Namenode冗余备份" class="headerlink" title="Namenode冗余备份"></a>Namenode冗余备份</h3><p><img src="/论文学习_基于HDFS的云数据存储系统/冗余namenode.jpg" alt="HB-CDBS"></p>
+<h3 id="Namenode冗余备份"><a href="#Namenode冗余备份" class="headerlink" title="Namenode冗余备份"></a>Namenode冗余备份</h3><p><img src="/Blog_images/冗余namenode.jpg" alt="HB-CDBS"></p>
 <ul>
 <li>原因</li>
 </ul>
@@ -343,7 +352,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计理念"><span class="toc-number">1.</span> <span class="toc-text">设计理念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分块存储"><span class="toc-number">2.</span> <span class="toc-text">分块存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namenode和Datanode节点"><span class="toc-number">3.</span> <span class="toc-text">Namenode和Datanode节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件写入-读取过程"><span class="toc-number">4.</span> <span class="toc-text">文件写入/读取过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namenode冗余备份"><span class="toc-number">5.</span> <span class="toc-text">Namenode冗余备份</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计理念"><span class="toc-number">1.</span> <span class="toc-text">设计理念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#block、packet-和-chunk"><span class="toc-number">2.</span> <span class="toc-text">block、packet 和 chunk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namenode和Datanode节点"><span class="toc-number">3.</span> <span class="toc-text">Namenode和Datanode节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件写入-读取过程"><span class="toc-number">4.</span> <span class="toc-text">文件写入/读取过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namenode冗余备份"><span class="toc-number">5.</span> <span class="toc-text">Namenode冗余备份</span></a></li></ol>
                     </div>
                 </span>
             </div>
