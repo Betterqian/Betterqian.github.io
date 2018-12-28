@@ -6,22 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>论文学习-《Hadoop的两大核心技术HDFS和MapReduce》 | 刘谦的博客</title>
+  <title>JAVA 实现 HDFS 文件的上传下载 | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。">
-<meta name="keywords" content="HDFS">
+  <meta name="description" content="HDFS分布式文件系统是基于JAVA的，我们尝试用Java实现HDFS分布式集群文件的上传下载删除功能。">
+<meta name="keywords" content="HDFS,JAVA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文学习-《Hadoop的两大核心技术HDFS和MapReduce》">
-<meta property="og:url" content="http://yoursite.com/2018/11/26/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/index.html">
+<meta property="og:title" content="JAVA 实现 HDFS 文件的上传下载">
+<meta property="og:url" content="http://yoursite.com/2018/12/28/JAVA实现HDFS系统文件的上传下载/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。">
+<meta property="og:description" content="HDFS分布式文件系统是基于JAVA的，我们尝试用Java实现HDFS分布式集群文件的上传下载删除功能。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/Blog_images/论文学习_Hadoop的两大核心技术HDFS和MapReduce/名称节点.png">
-<meta property="og:updated_time" content="2018-12-28T03:56:18.538Z">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/浏览器查看文件状态.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/master查看文件目录.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/控制台查看文件目录.png">
+<meta property="og:updated_time" content="2018-12-28T03:57:48.983Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="论文学习-《Hadoop的两大核心技术HDFS和MapReduce》">
-<meta name="twitter:description" content="本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。">
-<meta name="twitter:image" content="http://yoursite.com/Blog_images/论文学习_Hadoop的两大核心技术HDFS和MapReduce/名称节点.png">
+<meta name="twitter:title" content="JAVA 实现 HDFS 文件的上传下载">
+<meta name="twitter:description" content="HDFS分布式文件系统是基于JAVA的，我们尝试用Java实现HDFS分布式集群文件的上传下载删除功能。">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -147,39 +150,43 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-论文学习_《Hadoop的两大核心技术HDFS和MapReduce》" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-JAVA实现HDFS系统文件的上传下载" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      论文学习-《Hadoop的两大核心技术HDFS和MapReduce》
+      JAVA 实现 HDFS 文件的上传下载
     </h1>
   
 
         
-        <a href="/2018/11/26/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/" class="archive-article-date">
-  	<time datetime="2018-11-26T06:15:06.263Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-26</time>
+        <a href="/2018/12/28/JAVA实现HDFS系统文件的上传下载/" class="archive-article-date">
+  	<time datetime="2018-12-28T02:39:45.501Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。</p>
-<a id="more"></a>
-<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>Hadoop 是 Apache 基金会旗下的开源分布式计算平台，为用户提供了系统底层透明的分布式基础架构，随着大数据相关技术的发展，Hadoop 已发展成为众多子项目的集合。HDFS 是 Hadoop 集群中最基础的部分，提供了大规模的数据存储能力；MapReduce 将对数据的处理封装为 Map 和 Reduce 两个函数，实现了对大规模数据的处理。</p>
-<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>HDFS（Hadoop Distributed File System）是Hadoop中的分布式文件系统，是对 Google的GFS（Google File System）的开源实现。HDFS的设计思想是“<em>一次写入，多次读取</em>”，将大规模数据切分成Block数据块进行存储，简单的系统设计使得HDFS只能完成数据的写入和读取，不能对数据进行修改，利用大量的廉价硬件设备实现并行读写和大规模数据存储。HDFS采用主从设计结构，通常一个 HDFS 集群中包含一个<em>名称节点（NameNode）</em> 和若干个<em>数据节点（DataNode）</em>。<br><img src="/Blog_images/论文学习_Hadoop的两大核心技术HDFS和MapReduce/名称节点.png" alt="名称节点"></p>
-<p>名称节点负责管理文件系统的命名空间，它保存了FsImage 和 EditLog 两个核心的数据结构,记录了每个数据块所存储的数据节点的位置信息，但是每次系统重启时会重新加载这些信息并动态更改和保存这些信息。 FsImage记录了所有数据节点中文件的元数据信息，EditLog 作为系统日志文件保存了所有针对文件的各种操作信息。FsImage 中的信息会在名称节点启动时将其加载到内存中，然后执行EditLog 中所保存的操作信息使得内存中的元数据信息一直保持最新状态。<br>数据节点主要负责对数据的存储和读取，根据客户端或名称节点的调度完成对数据的存储和查询，并定期将自己所保存的数据块的信息发送给名称节点。每个数据节点中的数据会被保存在各自节点的本地 Linux 文件系统中。</p>
-<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>Hadoop框架中的 MapReduce是对谷歌公司的MapReduce的开源实现，是为了解决大规模数据的高效处理问题，将运行在大规模集群上的并行计算过程高度地抽象成两个函数：Map和 Reduce。<br></p>
-<ul>
-<li>MapReduce将存储在分布式文件系统中的大规模数据集切分成许多独立的分片（split），这些分片可以被多个Map任务并行处理。</li>
-<li>MapReduce 设计理念：<em>计算向数据靠拢</em>，减少了网络传输开销。</li>
-<li>MapReduce分布式并行编程使程序员只关注Map和Reduce 函数的实现，分布式存储、工作调度、负载均衡等问题均由 MapReduce框架进行处理。</li>
-<li>Map和Reduce函数都是以键值对的形式作为输入，按照一定的映射规则再通过键值对进行输出。Map函数的输入来自分布式文件系统的文件块，可以是二进制文件也可以是文档文件，Map函数将其输入按照规则转换为键值对，键和值的类型是任意的，键并不能作为唯一标识，一个Map任务也可以生成多个相同键的键值对。Reduce 函数就是将输入的具有多个相同键的键值对以某种方式组合起来，输出处理后的键值对，将输入结果合并成一个文件。</li>
-</ul>
-
+        <blockquote>
+<p>HDFS分布式文件系统是基于JAVA的，我们尝试用Java实现HDFS分布式集群文件的上传下载删除功能。<br><a id="more"></a></p>
+</blockquote>
+<h4 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h4><p>Hadoop集群：一个NameNode节点，三个DataNode节点<br>MyEclipse：myeclipse-pro-2014-GA</p>
+<h3 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h3><p>依次启动各虚拟机节点，在master节点运行命令：start-all.sh<br><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png" alt="集群启动"></p>
+<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>在集群文件根目录 / 下新建一个movie文件夹，将本机 末日崩塌.mp4 文件上传至集群movie文件夹下，再将本机ubuntu-14.04.5-server-amd64.iso文件上传至Ubuntu_images文件夹，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private static String LOCAL_PATH = &quot;E:/installation_package/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String HDFS_PATH = &quot;/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(new URI(MASTER_URI), conf);</span><br><span class="line">InputStream in = new FileInputStream(LOCAL_PATH);</span><br><span class="line">OutputStream out = fs.create(new Path(HDFS_PATH), new Progressable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void progress() &#123;</span><br><span class="line">        System.out.println(&quot;上传文件完成！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">IOUtils.copyBytes(in, out, conf);</span><br></pre></td></tr></table></figure>
+<h4 id="打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统"><a href="#打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统" class="headerlink" title="打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统"></a>打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/浏览器查看文件状态.png" alt="浏览器查看文件状态"></p>
+<h4 id="在master节点运行命令：-hdfs-dfs-–ls-查看文件状态：此处电影中文名乱码"><a href="#在master节点运行命令：-hdfs-dfs-–ls-查看文件状态：此处电影中文名乱码" class="headerlink" title="在master节点运行命令： hdfs dfs –ls / 查看文件状态：此处电影中文名乱码"></a>在master节点运行命令： hdfs dfs –ls / 查看文件状态：此处电影中文名乱码</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/master查看文件目录.png" alt="master查看文件目录"></p>
+<h4 id="在MyEclipse端查看文件目录代码如下："><a href="#在MyEclipse端查看文件目录代码如下：" class="headerlink" title="在MyEclipse端查看文件目录代码如下："></a>在MyEclipse端查看文件目录代码如下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">private static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br><span class="line">private static String HDFS_PATH = &quot;/&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(URI.create(MASTER_URI), conf);</span><br><span class="line">Path path = new Path(HDFS_PATH);</span><br><span class="line">if(fs.exists(path))&#123;</span><br><span class="line">	FileStatus[] list = fs.listStatus(path);</span><br><span class="line">	System.out.println(&quot;ls: &quot; + HDFS_PATH);</span><br><span class="line">	System.out.println(&quot;==========================================================&quot;);</span><br><span class="line">	for (FileStatus f : list) &#123;</span><br><span class="line">		System.out.printf(&quot;name: %s, folder: %s, size: %d\n&quot;, f.getPath(), f.isDirectory(), f.getLen());</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(&quot;==========================================================&quot;);</span><br><span class="line">	fs.close();</span><br><span class="line">&#125;else</span><br><span class="line">	System.out.print(HDFS_PATH +&quot;:文件目录不存在！&quot;);</span><br></pre></td></tr></table></figure>
+<h4 id="控制台输出如下："><a href="#控制台输出如下：" class="headerlink" title="控制台输出如下："></a>控制台输出如下：</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/控制台查看文件目录.png" alt="控制台查看文件目录"></p>
+<h3 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private static String LOCAL_PATH = &quot;C:/Users/Administrator/Desktop/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String HDFS_PATH = &quot;/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(new URI(MASTER_URI), conf);</span><br><span class="line">InputStream in = fs.open(new Path(HDFS_PATH));</span><br><span class="line">OutputStream out = new FileOutputStream(LOCAL_PATH);</span><br><span class="line">IOUtils.copyBytes(in, out, conf);</span><br><span class="line">System.out.println(&quot;下载文件完成！&quot;);</span><br></pre></td></tr></table></figure>
+<p>大文件下载出错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">log4j:WARN No appenders could be found for logger (org.apache.hadoop.util.Shell).</span><br><span class="line">log4j:WARN Please initialize the log4j system properly.</span><br><span class="line">log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.</span><br><span class="line">Exception in thread &quot;main&quot; org.apache.hadoop.hdfs.BlockMissingException: Could not obtain block: BP-1633267671-127.0.1.1-1544000505437:blk_1073741874_1050 file=/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso</span><br><span class="line">	at org.apache.hadoop.hdfs.DFSInputStream.refetchLocations(DFSInputStream.java:1084)</span><br><span class="line">	at org.apache.hadoop.hdfs.DFSInputStream.chooseDataNode(DFSInputStream.java:1068)</span><br><span class="line">	at org.apache.hadoop.hdfs.DFSInputStream.chooseDataNode(DFSInputStream.java:1047)</span><br><span class="line">	at org.apache.hadoop.hdfs.DFSInputStream.blockSeekTo(DFSInputStream.java:655)</span><br><span class="line">	at org.apache.hadoop.hdfs.DFSInputStream.readWithStrategy(DFSInputStream.java:949)</span><br><span class="line">	at org.apache.hadoop.hdfs.DFSInputStream.read(DFSInputStream.java:1004)</span><br><span class="line">	at java.io.DataInputStream.read(DataInputStream.java:100)</span><br><span class="line">	at org.apache.hadoop.io.IOUtils.copyBytes(IOUtils.java:99)</span><br><span class="line">	at org.apache.hadoop.io.IOUtils.copyBytes(IOUtils.java:67)</span><br><span class="line">	at org.apache.hadoop.io.IOUtils.copyBytes(IOUtils.java:113)</span><br><span class="line">	at org.apache.hadoop.examples.DownloadFileToLocal.main(DownloadFileToLocal.java:28)</span><br></pre></td></tr></table></figure></p>
+<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static String HDFS_PATH = &quot;/movie&quot;;</span><br><span class="line">static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(URI.create(MASTER_URI), conf);</span><br><span class="line">Path path = new Path(HDFS_PATH);</span><br><span class="line">		</span><br><span class="line">//判断路径文件是否存在，存在即删除，不存在即返回文件不存在</span><br><span class="line">if(fs.exists(path))&#123;</span><br><span class="line">	fs.deleteOnExit(path);</span><br><span class="line">	System.out.print(&quot;删除：&quot;+ HDFS_PATH +&quot;成功！&quot;);</span><br><span class="line">	fs.close();</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">	System.out.print(HDFS_PATH+&quot;:文件不存在！&quot;);</span><br></pre></td></tr></table></figure>
       
 
       
@@ -214,6 +221,10 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">JAVA</a>
         		</li>
       		
 		</ul>
@@ -269,7 +280,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/26/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/12/28/JAVA实现HDFS系统文件的上传下载/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -283,18 +294,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/12/13/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Hadoop1.0、Hadoop2.0和Hadoop3.0
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/11/21/HDFS架构/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">HDFS 架构</div>
+    <a href="/2018/12/27/HDFS读流程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HDFS 读流程详解</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -321,8 +323,8 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hadoop"><span class="toc-number">1.</span> <span class="toc-text">Hadoop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS"><span class="toc-number">2.</span> <span class="toc-text">HDFS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce"><span class="toc-number">3.</span> <span class="toc-text">MapReduce</span></a></li></ol>
-                    </div>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#实验环境"><span class="toc-number">1.</span> <span class="toc-text">实验环境</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#启动集群"><span class="toc-number"></span> <span class="toc-text">启动集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上传文件"><span class="toc-number"></span> <span class="toc-text">上传文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统"><span class="toc-number">1.</span> <span class="toc-text">打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在master节点运行命令：-hdfs-dfs-–ls-查看文件状态：此处电影中文名乱码"><span class="toc-number">2.</span> <span class="toc-text">在master节点运行命令： hdfs dfs –ls / 查看文件状态：此处电影中文名乱码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在MyEclipse端查看文件目录代码如下："><span class="toc-number">3.</span> <span class="toc-text">在MyEclipse端查看文件目录代码如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#控制台输出如下："><span class="toc-number">4.</span> <span class="toc-text">控制台输出如下：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载文件"><span class="toc-number"></span> <span class="toc-text">下载文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除文件"><span class="toc-number"></span> <span class="toc-text">删除文件</span></a>
+                    </li></div>
                 </span>
             </div>
         </div>

@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="刘谦的博客">
 <meta property="og:description" content="客户端要向HDFS读数据,首先要和namenode进行通信来获得需要读取文件的元信息(主要是block的存放文件位置信息),客户端根据获取的信息找到相应的datanode逐个获取文件的block并在客户端本地进行数据追加合并从而获得整个文件.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/Blog_images/HDFS_读流程.png">
-<meta property="og:updated_time" content="2018-12-27T12:39:02.236Z">
+<meta property="og:image" content="http://yoursite.com/Blog_images/HDFS文件读写流程/HDFS_读流程.png">
+<meta property="og:updated_time" content="2018-12-28T04:05:39.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HDFS 读流程详解">
 <meta name="twitter:description" content="客户端要向HDFS读数据,首先要和namenode进行通信来获得需要读取文件的元信息(主要是block的存放文件位置信息),客户端根据获取的信息找到相应的datanode逐个获取文件的block并在客户端本地进行数据追加合并从而获得整个文件.">
-<meta name="twitter:image" content="http://yoursite.com/Blog_images/HDFS_读流程.png">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/HDFS文件读写流程/HDFS_读流程.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -170,7 +170,7 @@
         <blockquote>
 <p>客户端要向HDFS读数据,首先要和namenode进行通信来获得需要读取文件的元信息(主要是block的存放文件位置信息),客户端根据获取的信息找到相应的datanode逐个获取文件的block并在客户端本地进行数据追加合并从而获得整个文件.<br><a id="more"></a></p>
 </blockquote>
-<h4 id="写过程示意图"><a href="#写过程示意图" class="headerlink" title="写过程示意图"></a>写过程示意图</h4><p><img src="/Blog_images/HDFS_读流程.png" alt="HDFS读数据流程"></p>
+<h4 id="读过程示意图"><a href="#读过程示意图" class="headerlink" title="读过程示意图"></a>读过程示意图</h4><p><img src="/Blog_images/HDFS文件读写流程/HDFS_读流程.png" alt="HDFS读数据流程"></p>
 <h4 id="读过程详细步骤"><a href="#读过程详细步骤" class="headerlink" title="读过程详细步骤"></a>读过程详细步骤</h4><p><strong>1、Client调用<code>FileSystem.open()</code>方法，创建<code>DistributedFileSystem</code>实例，<code>DistributedFileSystem</code>向Namenode发起RPC(远程过程调用)请求下载文件；</strong></p>
 <p><strong>2、Namenode会视情况返回文件的部分或者全部block列表，对于每个block，Namenode都会返回有该block拷贝的DataNode地址（这些DataNode会按照Hadoop定义的集群拓扑结构得出客户端的距离，然后再进行排序）；</strong></p>
 <p><strong>3、<code>DistributedFileSystem</code>向客户端返回一个支持文件定位的输入流的对象<code>FSDataInputStream</code>用于客户端读取数据。<code>FSDataInputStream</code>包含一个<code>DFSInputStream</code>对象用来管理DataNode和NameNode之间的I/O连接。</strong></p>
@@ -289,6 +289,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2018/12/28/JAVA实现HDFS系统文件的上传下载/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JAVA 实现 HDFS 文件的上传下载
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/12/26/HDFS写流程/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">HDFS 写流程详解</div>
@@ -318,7 +327,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#写过程示意图"><span class="toc-number">1.</span> <span class="toc-text">写过程示意图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#读过程详细步骤"><span class="toc-number">2.</span> <span class="toc-text">读过程详细步骤</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#读过程示意图"><span class="toc-number">1.</span> <span class="toc-text">读过程示意图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#读过程详细步骤"><span class="toc-number">2.</span> <span class="toc-text">读过程详细步骤</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -452,6 +461,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
               </li>
              
               <li class="article-tag-list-item">

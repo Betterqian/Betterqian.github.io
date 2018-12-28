@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="刘谦的博客">
 <meta property="og:description" content="Hadoop1.0 1.0.0版本发布于2011-12-27。内核主要由HDFS和MapReduce两个系统组成，其中HDFS由一个NameNode和多个DataNode组成，MapReduce是一个离线处理框架，由编程模型（新旧API）、运行时环境（一个JobTracker和多个TaskTracker）和数据处理引擎（MapTask和ReduceTask）三部分组成。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/Blog_images/hadoop.jpg">
-<meta property="og:image" content="http://yoursite.com/Blog_images/HDFS_Federation.png">
-<meta property="og:updated_time" content="2018-12-27T14:03:36.302Z">
+<meta property="og:image" content="http://yoursite.com/Blog_images/Hadoop版本对比/hadoop.jpg">
+<meta property="og:image" content="http://yoursite.com/Blog_images/Hadoop版本对比/HDFS_Federation.png">
+<meta property="og:updated_time" content="2018-12-28T04:04:33.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop1.0、Hadoop2.0和Hadoop3.0">
 <meta name="twitter:description" content="Hadoop1.0 1.0.0版本发布于2011-12-27。内核主要由HDFS和MapReduce两个系统组成，其中HDFS由一个NameNode和多个DataNode组成，MapReduce是一个离线处理框架，由编程模型（新旧API）、运行时环境（一个JobTracker和多个TaskTracker）和数据处理引擎（MapTask和ReduceTask）三部分组成。">
-<meta name="twitter:image" content="http://yoursite.com/Blog_images/hadoop.jpg">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/Hadoop版本对比/hadoop.jpg">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -176,10 +176,10 @@
 <h3 id="Hadoop2-0"><a href="#Hadoop2-0" class="headerlink" title="Hadoop2.0"></a>Hadoop2.0</h3><blockquote>
 <p>第一个稳定版2.2.0发布于2013-10-15。内核主要由HDFS、MapReduce和YARN三个系统组成，其中YARN是一个资源管理系统，负责集群资源管理和调度，MapReduce则是运行在YARN上的离线处理框架，它与Hadoop 1.0中的MapReduce在编程模型（新旧API）和数据处理引擎（MapTask和ReduceTask）两个方面是相同的。</p>
 </blockquote>
-<h3 id="Hadoop1-0和Hadoop2-0架构"><a href="#Hadoop1-0和Hadoop2-0架构" class="headerlink" title="Hadoop1.0和Hadoop2.0架构"></a>Hadoop1.0和Hadoop2.0架构</h3><p><img src="/Blog_images/hadoop.jpg" alt="HB-CDBS"></p>
+<h3 id="Hadoop1-0和Hadoop2-0架构"><a href="#Hadoop1-0和Hadoop2-0架构" class="headerlink" title="Hadoop1.0和Hadoop2.0架构"></a>Hadoop1.0和Hadoop2.0架构</h3><p><img src="/Blog_images/Hadoop版本对比/hadoop.jpg" alt="HB-CDBS"></p>
 <h3 id="Hadoop1-0和Hadoop2-0的区别"><a href="#Hadoop1-0和Hadoop2-0的区别" class="headerlink" title="Hadoop1.0和Hadoop2.0的区别"></a>Hadoop1.0和Hadoop2.0的区别</h3><h4 id="从-Hadoop-整体框架角度"><a href="#从-Hadoop-整体框架角度" class="headerlink" title="从 Hadoop 整体框架角度"></a>从 Hadoop 整体框架角度</h4><p>Hadoop2.0为克服Hadoop1.0中的不足进行了下面改进：</p>
 <p>1、新增了HDFS HA机制：HA增加了<code>standbynamenode</code>进行热备份，解决了1.0的单点故障问题</p>
-<p>2、针对Hadoop1.0单NameNode制约HDFS的扩展性问题，提出<code>HDFS Federation</code>，它让多个NameNode分管不同的目录进而实现访问隔离和横向扩展；<br><img src="/Blog_images/HDFS_Federation.png" alt="HB-CDBS"></p>
+<p>2、针对Hadoop1.0单NameNode制约HDFS的扩展性问题，提出<code>HDFS Federation</code>，它让多个NameNode分管不同的目录进而实现访问隔离和横向扩展；<br><img src="/Blog_images/Hadoop版本对比/HDFS_Federation.png" alt="HB-CDBS"></p>
 <p>3、新增了YARN框架：</p>
 <p>在1.0中：由一个<code>JobTracker</code>和若干个<code>TaskTracker</code>两类服务组成，其中JobTracker负责资源管理和所有作业的控制，TaskTracker负责接收来自JobTracker的命令并执行它。所以MapReduce即是任务调度框架又是计算框架，1.0中会出现JobTracker大包大揽任务过重，而且存在单点故障问题，并且容易出现OOM问题，资源分配不合理等问题。</p>
 <p>在2.0中：Master端由<code>ResourceManager</code>进行资源管理调度，由<code>ApplicationMaster</code>进行任务管理和任务监控。Slave端由NodeManager替代TaskTracker进行具体任务的执行，所以MapReduce2.0只是一个计算框架，具体资源调度全部交给Yarn框架。</p>
@@ -465,6 +465,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
               </li>
              
               <li class="article-tag-list-item">

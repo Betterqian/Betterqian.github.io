@@ -6,22 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>论文学习-《Hadoop的两大核心技术HDFS和MapReduce》 | 刘谦的博客</title>
+  <title>Tag: HDFS | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。">
-<meta name="keywords" content="HDFS">
-<meta property="og:type" content="article">
-<meta property="og:title" content="论文学习-《Hadoop的两大核心技术HDFS和MapReduce》">
-<meta property="og:url" content="http://yoursite.com/2018/11/26/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/index.html">
+  <meta name="description" content="一个机智的菜鸟">
+<meta property="og:type" content="website">
+<meta property="og:title" content="刘谦的博客">
+<meta property="og:url" content="http://yoursite.com/tags/HDFS/page/2/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。">
+<meta property="og:description" content="一个机智的菜鸟">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/Blog_images/论文学习_Hadoop的两大核心技术HDFS和MapReduce/名称节点.png">
-<meta property="og:updated_time" content="2018-12-28T03:56:18.538Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="论文学习-《Hadoop的两大核心技术HDFS和MapReduce》">
-<meta name="twitter:description" content="本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。">
-<meta name="twitter:image" content="http://yoursite.com/Blog_images/论文学习_Hadoop的两大核心技术HDFS和MapReduce/名称节点.png">
+<meta name="twitter:title" content="刘谦的博客">
+<meta name="twitter:description" content="一个机智的菜鸟">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -147,67 +143,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-论文学习_《Hadoop的两大核心技术HDFS和MapReduce》" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      论文学习-《Hadoop的两大核心技术HDFS和MapReduce》
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/11/19/论文学习_基于HDFS的云数据存储系统/" class="archive-article-date">
+  	<time datetime="2018-11-19T08:31:48.210Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/11/19/论文学习_基于HDFS的云数据存储系统/">论文学习-《基于HDFS的云数据备份系统》</a>
     </h1>
   
 
-        
-        <a href="/2018/11/26/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/" class="archive-article-date">
-  	<time datetime="2018-11-26T06:15:06.263Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文主要简单介绍分布式处理框架Hadoop的两大核心技术HDFS和MapReduce。</p>
-<a id="more"></a>
-<h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>Hadoop 是 Apache 基金会旗下的开源分布式计算平台，为用户提供了系统底层透明的分布式基础架构，随着大数据相关技术的发展，Hadoop 已发展成为众多子项目的集合。HDFS 是 Hadoop 集群中最基础的部分，提供了大规模的数据存储能力；MapReduce 将对数据的处理封装为 Map 和 Reduce 两个函数，实现了对大规模数据的处理。</p>
-<h2 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h2><p>HDFS（Hadoop Distributed File System）是Hadoop中的分布式文件系统，是对 Google的GFS（Google File System）的开源实现。HDFS的设计思想是“<em>一次写入，多次读取</em>”，将大规模数据切分成Block数据块进行存储，简单的系统设计使得HDFS只能完成数据的写入和读取，不能对数据进行修改，利用大量的廉价硬件设备实现并行读写和大规模数据存储。HDFS采用主从设计结构，通常一个 HDFS 集群中包含一个<em>名称节点（NameNode）</em> 和若干个<em>数据节点（DataNode）</em>。<br><img src="/Blog_images/论文学习_Hadoop的两大核心技术HDFS和MapReduce/名称节点.png" alt="名称节点"></p>
-<p>名称节点负责管理文件系统的命名空间，它保存了FsImage 和 EditLog 两个核心的数据结构,记录了每个数据块所存储的数据节点的位置信息，但是每次系统重启时会重新加载这些信息并动态更改和保存这些信息。 FsImage记录了所有数据节点中文件的元数据信息，EditLog 作为系统日志文件保存了所有针对文件的各种操作信息。FsImage 中的信息会在名称节点启动时将其加载到内存中，然后执行EditLog 中所保存的操作信息使得内存中的元数据信息一直保持最新状态。<br>数据节点主要负责对数据的存储和读取，根据客户端或名称节点的调度完成对数据的存储和查询，并定期将自己所保存的数据块的信息发送给名称节点。每个数据节点中的数据会被保存在各自节点的本地 Linux 文件系统中。</p>
-<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>Hadoop框架中的 MapReduce是对谷歌公司的MapReduce的开源实现，是为了解决大规模数据的高效处理问题，将运行在大规模集群上的并行计算过程高度地抽象成两个函数：Map和 Reduce。<br></p>
-<ul>
-<li>MapReduce将存储在分布式文件系统中的大规模数据集切分成许多独立的分片（split），这些分片可以被多个Map任务并行处理。</li>
-<li>MapReduce 设计理念：<em>计算向数据靠拢</em>，减少了网络传输开销。</li>
-<li>MapReduce分布式并行编程使程序员只关注Map和Reduce 函数的实现，分布式存储、工作调度、负载均衡等问题均由 MapReduce框架进行处理。</li>
-<li>Map和Reduce函数都是以键值对的形式作为输入，按照一定的映射规则再通过键值对进行输出。Map函数的输入来自分布式文件系统的文件块，可以是二进制文件也可以是文档文件，Map函数将其输入按照规则转换为键值对，键和值的类型是任意的，键并不能作为唯一标识，一个Map任务也可以生成多个相同键的键值对。Reduce 函数就是将输入的具有多个相同键的键值对以某种方式组合起来，输出处理后的键值对，将输入结果合并成一个文件。</li>
-</ul>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -219,127 +184,22 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/26/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/12/13/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Hadoop1.0、Hadoop2.0和Hadoop3.0
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/11/21/HDFS架构/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">HDFS 架构</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hadoop"><span class="toc-number">1.</span> <span class="toc-text">Hadoop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS"><span class="toc-number">2.</span> <span class="toc-text">HDFS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce"><span class="toc-number">3.</span> <span class="toc-text">MapReduce</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/tags/HDFS/">&laquo; Prev</a><a class="page-number" href="/tags/HDFS/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -363,9 +223,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
