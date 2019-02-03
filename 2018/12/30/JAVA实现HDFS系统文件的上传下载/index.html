@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>JAVA 实现 HDFS 文件的上传下载 | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这篇博客分享了我在搭建集群过程中我用于上传下载实验文件的Java代码。">
+  <meta name="description" content="这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。">
 <meta name="keywords" content="HDFS,JAVA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVA 实现 HDFS 文件的上传下载">
 <meta property="og:url" content="http://yoursite.com/2018/12/30/JAVA实现HDFS系统文件的上传下载/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="这篇博客分享了我在搭建集群过程中我用于上传下载实验文件的Java代码。">
+<meta property="og:description" content="这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png">
 <meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/浏览器查看文件状态.png">
 <meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/master查看文件目录.png">
 <meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/控制台查看文件目录.png">
-<meta property="og:updated_time" content="2019-02-02T16:38:25.360Z">
+<meta property="og:updated_time" content="2019-02-03T09:55:00.645Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA 实现 HDFS 文件的上传下载">
-<meta name="twitter:description" content="这篇博客分享了我在搭建集群过程中我用于上传下载实验文件的Java代码。">
+<meta name="twitter:description" content="这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。">
 <meta name="twitter:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
@@ -170,7 +170,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这篇博客分享了我在搭建集群过程中我用于上传下载实验文件的Java代码。<br><a id="more"></a></p>
+        <p>这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。<br><a id="more"></a></p>
 <h4 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h4><p>Hadoop集群：一个NameNode节点，三个DataNode节点<br>MyEclipse：myeclipse-pro-2014-GA</p>
 <h3 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h3><p>依次启动各虚拟机节点，在master节点运行命令：start-all.sh<br><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png" alt="集群启动"></p>
 <h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>在集群文件根目录 / 下新建一个movie文件夹，将本机 末日崩塌.mp4 文件上传至集群movie文件夹下，再将本机ubuntu-14.04.5-server-amd64.iso文件上传至Ubuntu_images文件夹，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private static String LOCAL_PATH = &quot;E:/installation_package/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String HDFS_PATH = &quot;/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br></pre></td></tr></table></figure></p>
@@ -471,6 +471,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">论文学习</a>
               </li>
              
               <li class="article-tag-list-item">

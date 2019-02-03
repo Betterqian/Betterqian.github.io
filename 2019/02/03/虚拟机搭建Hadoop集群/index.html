@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/集群机架配置信息.png">
 <meta property="og:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/集群信息概览1.png">
 <meta property="og:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/数据节点的web页面.png">
-<meta property="og:updated_time" content="2019-02-03T09:45:16.762Z">
+<meta property="og:updated_time" content="2019-02-03T09:51:11.245Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟机搭建Hadoop集群">
 <meta name="twitter:description" content="最近在学习Hadoop本文介绍了利用虚拟机搭建拥有九个数据节点的Hadoop集群的实验流程，包括实验步骤、配置及常见的注意事项。">
@@ -203,7 +203,7 @@
 <blockquote>
 <p>说明：为保证集群各节点的无密登录，仅对Namenode创建公密钥，然后将该公密钥拷贝至其他类节点。</p>
 </blockquote>
-<p>公密钥创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">ssh-keygen -t dsa</span><br></pre></td></tr></table></figure></p>
+<p>公密钥创建，生成公密钥过程中一路回车，不要设置密码，不用设置存储路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">ssh-keygen -t dsa</span><br></pre></td></tr></table></figure></p>
 <p>无密登录配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh</span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line">cat id_dsa.pub &gt;&gt; authorized_keys</span><br></pre></td></tr></table></figure></p>
 <p>公密钥拷贝<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">后续更新</span><br></pre></td></tr></table></figure></p>
 <p>启动SSH服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/ssh start</span><br></pre></td></tr></table></figure></p>
@@ -537,6 +537,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">论文学习</a>
               </li>
              
               <li class="article-tag-list-item">
