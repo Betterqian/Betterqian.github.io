@@ -6,18 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: JAVA | 刘谦的博客</title>
+  <title>虚拟机搭建Hadoop集群 | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个机智的菜鸟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘谦的博客">
-<meta property="og:url" content="http://yoursite.com/tags/JAVA/index.html">
+  <meta name="description" content="本文介绍了利用虚拟机搭建Hadoop集群的实验流程，包括步骤及实验配置。">
+<meta name="keywords" content="Hadoop,虚拟机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟机搭建Hadoop集群">
+<meta property="og:url" content="http://yoursite.com/2019/02/03/虚拟机搭建Hadoop集群/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="一个机智的菜鸟">
+<meta property="og:description" content="本文介绍了利用虚拟机搭建Hadoop集群的实验流程，包括步骤及实验配置。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/实验集群拓扑.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/集群机架配置.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/集群启动后在master运行jps.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/集群存活节点.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/集群机架配置信息.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/集群信息概览1.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/数据节点的web页面.png">
+<meta property="og:updated_time" content="2019-02-03T07:10:13.275Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刘谦的博客">
-<meta name="twitter:description" content="一个机智的菜鸟">
+<meta name="twitter:title" content="虚拟机搭建Hadoop集群">
+<meta name="twitter:description" content="本文介绍了利用虚拟机搭建Hadoop集群的实验流程，包括步骤及实验配置。">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/虚拟机搭建Hadoop集群/实验集群拓扑.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -143,64 +153,268 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-虚拟机搭建Hadoop集群" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/30/JAVA实现HDFS系统文件的上传下载/" class="archive-article-date">
-  	<time datetime="2018-12-30T09:20:58.522Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-30</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/30/JAVA实现HDFS系统文件的上传下载/">JAVA 实现 HDFS 文件的上传下载</a>
+    <h1 class="article-title" itemprop="name">
+      虚拟机搭建Hadoop集群
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/02/03/虚拟机搭建Hadoop集群/" class="archive-article-date">
+  	<time datetime="2019-02-02T16:46:29.867Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文介绍了利用虚拟机搭建Hadoop集群的实验流程，包括步骤及实验配置。<br><a id="more"></a></p>
+<h3 id="实验环境准备"><a href="#实验环境准备" class="headerlink" title="实验环境准备"></a>实验环境准备</h3><ul>
+<li>虚拟机系统版本：ubuntu-14.04.5-server-amd64.iso</li>
+<li>Hadoop版本：2.9.2</li>
+<li>Java：jdk-8u191-linux-x64.tar</li>
+<li>两台台式机，一台笔记本，一个服务器</li>
+</ul>
+<h3 id="Hadoop实验集群拓扑设计"><a href="#Hadoop实验集群拓扑设计" class="headerlink" title="Hadoop实验集群拓扑设计"></a>Hadoop实验集群拓扑设计</h3><p>节点类别及IP设置：<br><img src="/Blog_images/虚拟机搭建Hadoop集群/实验集群拓扑.png" alt="HB-CDBS"><br>机架配置：<br><img src="/Blog_images/虚拟机搭建Hadoop集群/集群机架配置.png" alt="HB-CDBS"></p>
+<h3 id="一、虚拟机安装"><a href="#一、虚拟机安装" class="headerlink" title="一、虚拟机安装"></a>一、虚拟机安装</h3><p>本实验共包含多种不同的处理器、内存、磁盘容量的虚拟机配置，以下步骤以Namenode节点的配置为例，若无特别说明，A、B、C三类节点配置相同。先按配置要求搭建Namenode、A、B、C四类虚拟机，使可联网。</p>
+<ul>
+<li>用户名：eacong</li>
+<li>密码：eacong</li>
+<li>用户主目录：/home/eacong</li>
+</ul>
+<h4 id="1、更改虚拟机主机名"><a href="#1、更改虚拟机主机名" class="headerlink" title="1、更改虚拟机主机名"></a>1、更改虚拟机主机名</h4><p>更改Ubuntu主机名有两种方式：</p>
+<ul>
+<li>使用命令临时更改，重启失效：sudo hostname 主机名</li>
+<li>编辑/etc/hostname文件可永久更改主机名，重启有效。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hostname</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2、设置静态IP地址"><a href="#2、设置静态IP地址" class="headerlink" title="2、设置静态IP地址"></a>2、设置静态IP地址</h4><p>此处先设置IP地址为172.17.7.201使可联网，方便后面更新源。<br>编辑文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/network/interfaces</span><br></pre></td></tr></table></figure></p>
+<p>将dhcp更改为static并添加一下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">auto eth0</span><br><span class="line">iface eth0 inet static</span><br><span class="line">address	192.168.5.200</span><br><span class="line">netmask	255.255.255.0</span><br><span class="line">gateway	192.168.5.1</span><br><span class="line">dns-nameserver 61.139.2.69</span><br></pre></td></tr></table></figure></p>
+<h3 id="二、更新源"><a href="#二、更新源" class="headerlink" title="二、更新源"></a>二、更新源</h3><p>备份原源文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br></pre></td></tr></table></figure></p>
+<p>编辑源文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apt/sources.list</span><br></pre></td></tr></table></figure></p>
+<p>添加如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse  </span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse  </span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse  </span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse  </span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse  </span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse  </span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse  </span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse  </span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse  </span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</span><br></pre></td></tr></table></figure></p>
+<h3 id="三、安装和启动SSH服务"><a href="#三、安装和启动SSH服务" class="headerlink" title="三、安装和启动SSH服务"></a>三、安装和启动SSH服务</h3><p>安装SSH<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ssh</span><br></pre></td></tr></table></figure></p>
+<p>SSH自启动设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /etc/init.d/ssh /etc/rc3.d/s100ssh</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>说明：为保证集群各节点的无密登录，仅对Namenode创建公密钥，然后将该公密钥拷贝至其他类节点。</p>
+</blockquote>
+<p>公密钥创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">ssh-keygen -t dsa</span><br></pre></td></tr></table></figure></p>
+<p>无密登录配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh</span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br><span class="line">cat id_dsa.pub &gt;&gt; authorized_keys</span><br></pre></td></tr></table></figure></p>
+<p>公密钥拷贝<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">后续更新</span><br></pre></td></tr></table></figure></p>
+<p>启动SSH服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/ssh start</span><br></pre></td></tr></table></figure></p>
+<p>测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh localhost</span><br></pre></td></tr></table></figure></p>
+<h3 id="四、安装Hadoop及Java环境"><a href="#四、安装Hadoop及Java环境" class="headerlink" title="四、安装Hadoop及Java环境"></a>四、安装Hadoop及Java环境</h3><h4 id="1、创建工作目录"><a href="#1、创建工作目录" class="headerlink" title="1、创建工作目录"></a>1、创建工作目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">mkdir java</span><br><span class="line">mkdir apache</span><br><span class="line">mkdir apache/hadoop</span><br></pre></td></tr></table></figure>
+<h4 id="2、导入Hadoop及Java文件"><a href="#2、导入Hadoop及Java文件" class="headerlink" title="2、导入Hadoop及Java文件"></a>2、导入Hadoop及Java文件</h4><p>使用psftp打开虚拟机目录，将本地主机Hadoop和Java文件导入虚拟机。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">open 192.168.5.11</span><br><span class="line">put E:/jdk-8u191-linux-x64.tar.gz /home/eacong/java/jdk-8u191-linux-x64.tar.gz</span><br><span class="line">put E:/hadoop-2.9.2.tar.gz /home/eacong/apache/hadoop/hadoop-2.9.2.tar.gz</span><br></pre></td></tr></table></figure></p>
+<h4 id="3、解压Hadoop和Java文件"><a href="#3、解压Hadoop和Java文件" class="headerlink" title="3、解压Hadoop和Java文件"></a>3、解压Hadoop和Java文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /home/eacong/java</span><br><span class="line">tar -xvzf jdk-8u191-linux-x64.tar.gz</span><br><span class="line">cd /home/eacong/apache/hadoop</span><br><span class="line">tar -xvzf hadoop-2.9.2.tar.gz</span><br></pre></td></tr></table></figure>
+<h4 id="4、配置环境变量"><a href="#4、配置环境变量" class="headerlink" title="4、配置环境变量"></a>4、配置环境变量</h4><p>编辑/etc/profile文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure></p>
+<p>在末尾添加以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/home/eacong/java/jdk1.8.0_191</span><br><span class="line">export JRE_HOME=$&#123;JAVA_HOME&#125;/jre </span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib </span><br><span class="line">export PATH=$PATH:$&#123;JAVA_HOME&#125;/bin</span><br><span class="line"></span><br><span class="line">export HADOOP_HOME=/home/eacong/apache/hadoop/hadoop-2.9.2  </span><br><span class="line">export HADOOP_CONFIG_HOME=$HADOOP_HOME/etc/hadoop  </span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin  </span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/sbin</span><br></pre></td></tr></table></figure></p>
+<p>使环境变量生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p>
+<h3 id="五、配置Hadoop"><a href="#五、配置Hadoop" class="headerlink" title="五、配置Hadoop"></a>五、配置Hadoop</h3><h4 id="1、创建工作目录-1"><a href="#1、创建工作目录-1" class="headerlink" title="1、创建工作目录"></a>1、创建工作目录</h4><ul>
+<li>tmp:hadoop临时目录</li>
+<li>namenode：NameNode存放目录</li>
+<li>datanode：DataNode存放目录<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd $HADOOP_HOME</span><br><span class="line">mkdir tmp</span><br><span class="line">mkdir namenode</span><br><span class="line">mkdir datanode</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>进入配置文件所在目录，修改hadoop配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/eacong/apache/hadoop/hadoop-2.9.2/etc/hadoop/</span><br></pre></td></tr></table></figure></p>
+<h4 id="2、新建topology-data文件并添加如下内容-仅在Namenode节点操作即可-："><a href="#2、新建topology-data文件并添加如下内容-仅在Namenode节点操作即可-：" class="headerlink" title="2、新建topology.data文件并添加如下内容(仅在Namenode节点操作即可)："></a>2、新建topology.data文件并添加如下内容(仅在Namenode节点操作即可)：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">192.168.5.11 slave7 /rack1</span><br><span class="line">192.168.5.21 slave3 /rack1</span><br><span class="line">192.168.5.31 slave1 /rack1</span><br><span class="line">192.168.5.12 slave8 /rack2</span><br><span class="line">192.168.5.22 slave4 /rack2</span><br><span class="line">192.168.5.32 slave2 /rack2</span><br><span class="line">192.168.5.13 slave9 /rack3</span><br><span class="line">192.168.5.23 slave5 /rack3</span><br><span class="line">192.168.5.24 slave6 /rack3</span><br></pre></td></tr></table></figure>
+<h4 id="3、新建脚本文件topology-sh-仅在Namenode节点操作即可"><a href="#3、新建脚本文件topology-sh-仅在Namenode节点操作即可" class="headerlink" title="3、新建脚本文件topology.sh(仅在Namenode节点操作即可)"></a>3、新建脚本文件topology.sh(仅在Namenode节点操作即可)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">HADOOP_CONF=/home/eacong/apache/hadoop/hadoop-2.9.2/etc/hadoop</span><br><span class="line">while [ $# -gt 0 ]</span><br><span class="line">do</span><br><span class="line">        nodeArg=$1</span><br><span class="line">        exec&lt;$&#123;HADOOP_CONF&#125;/topology.data</span><br><span class="line">        result=&quot;&quot;</span><br><span class="line">        while read line</span><br><span class="line">        do</span><br><span class="line">                ar=( $line )</span><br><span class="line">                if [ &quot;$&#123;ar[0]&#125;&quot; = &quot;$nodeArg&quot; ]||[ &quot;$&#123;ar[1]&#125;&quot; = &quot;$nodeArg&quot; ]</span><br><span class="line">                then</span><br><span class="line">                        result=&quot;$&#123;ar[2]&#125;&quot;</span><br><span class="line">                fi</span><br><span class="line">        done</span><br><span class="line">        shift</span><br><span class="line">        if [ -z &quot;$result&quot; ]</span><br><span class="line">        then</span><br><span class="line">                echo -n &quot;/default-rack&quot;</span><br><span class="line">        else</span><br><span class="line">                echo -n &quot;$result&quot;</span><br><span class="line">fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h4 id="4、配置core-site-xml文件"><a href="#4、配置core-site-xml文件" class="headerlink" title="4、配置core-site.xml文件"></a>4、配置core-site.xml文件</h4><p>在最后两行configuration之间插入如下内容:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">            &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">            &lt;value&gt;file:/home/eacong/hadoop/hadoop-2.9.2/tmp&lt;/value&gt;</span><br><span class="line">            &lt;description&gt;hadoop temporary directories&lt;/description&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">            &lt;name&gt;fs.default.name&lt;/name&gt;</span><br><span class="line">            &lt;value&gt;hdfs://master:9000&lt;/value&gt;</span><br><span class="line">            &lt;final&gt;true&lt;/final&gt;</span><br><span class="line">            &lt;description&gt;master port&lt;/description&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">        &lt;name&gt;topology.script.file.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/home/eacong/apache/hadoop/hadoop-2.9.2/etc/hadoop/topology.sh&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里第一个property内配置的参数表示Hadoop临时文件存放的路径，第4行的路径即此前创建的tmp文件夹路径；第二个property内是HDFS服务器名称和端口，在本案例中服务器名称是NameNode，服务器主机名：master，端口号默认是9000；第三个是机架配置的脚本文件。</p>
+<h4 id="5、给topology-sh和topology-data添加执行权限。"><a href="#5、给topology-sh和topology-data添加执行权限。" class="headerlink" title="5、给topology.sh和topology.data添加执行权限。"></a>5、给topology.sh和topology.data添加执行权限。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 topology.sh</span><br><span class="line">chmod 777 topology.data</span><br></pre></td></tr></table></figure>
+<h4 id="6、配置hdfs-site-xml文件"><a href="#6、配置hdfs-site-xml文件" class="headerlink" title="6、配置hdfs-site.xml文件"></a>6、配置hdfs-site.xml文件</h4><p>在最后两行configuration之间插入如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;2&lt;/value&gt;</span><br><span class="line">		&lt;final&gt;true&lt;/final&gt;</span><br><span class="line">		&lt;description&gt;Default block replication.</span><br><span class="line">		The actual number of replications can be specified when the file is created.</span><br><span class="line">		The default is used if replication is not specified in create time.</span><br><span class="line">		&lt;/description&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;/home/eacong/apache/hadoop/hadoop-2.9.2/namenode&lt;/value&gt;</span><br><span class="line">		&lt;final&gt;true&lt;/final&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;/home/eacong/apache/hadoop/hadoop-2.9.2/datanode&lt;/value&gt;</span><br><span class="line">		&lt;final&gt;true&lt;/final&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里第一个property内配置的是文件副本的数量；第二个property内配置的是NameNode存放文件的路径,即前面创建的namenode文件夹路径;第三个property内配置的是DataNode存放文件的路径，即前面创建的datanode文件夹路径。 </p>
+<h4 id="7、配置mapred-site-xml文件"><a href="#7、配置mapred-site-xml文件" class="headerlink" title="7、配置mapred-site.xml文件"></a>7、配置mapred-site.xml文件</h4><p>由于没有mapred-site.xml文件，我们先创建一个该文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp mapred-site.xml.template mapred-site.xml</span><br></pre></td></tr></table></figure></p>
+<p>配置mapred-site.xml，在最后两行configuration之间插入如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapred.job.tracker&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;master:9001&lt;/value&gt;</span><br><span class="line">        &lt;description&gt;The host and port that the MapReduce job tracker runs</span><br><span class="line">        at.  If &quot;local&quot;, then jobs are run in-process as a single map</span><br><span class="line">        and reduce task.</span><br><span class="line">        &lt;/description&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这里配置的即是MapReduce中JobTracker服务运行的主机和端口号，第4行代码表示本案例中JobTracker服务运行在master主机，端口号为9001。</p>
+<h4 id="8、配置JAVA-HOME环境变量"><a href="#8、配置JAVA-HOME环境变量" class="headerlink" title="8、配置JAVA_HOME环境变量"></a>8、配置JAVA_HOME环境变量</h4><p>修改hadoop-env.sh文件，在#The java implementation to use之后添加如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#The java implementation to use  </span><br><span class="line">export JAVA_HOME=/home/eacong/java/jdk1.8.0_191</span><br></pre></td></tr></table></figure></p>
+<p>注意：避免出问题这里最好使用绝对路径。</p>
+<h4 id="9、编辑hosts文件"><a href="#9、编辑hosts文件" class="headerlink" title="9、编辑hosts文件"></a>9、编辑hosts文件</h4><p>编辑各个节点的/etc/hosts文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure></p>
+<p>在hosts文件中添加各节点的名称及对应IP<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">192.168.5.2	master</span><br><span class="line">192.168.5.31	slave1</span><br><span class="line">192.168.5.32	slave2</span><br><span class="line">192.168.5.21	slave3</span><br><span class="line">192.168.5.22	slave4</span><br><span class="line">192.168.5.23	slave5</span><br><span class="line">192.168.5.24	slave6</span><br><span class="line">192.168.5.11	slave7</span><br><span class="line">192.168.5.12	slave8</span><br><span class="line">192.168.5.13	slave9</span><br></pre></td></tr></table></figure></p>
+<p>在所有节点上启动ssh服务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/ssh start</span><br></pre></td></tr></table></figure></p>
+<p>各个节点相互进行ssh连接测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eacong@master:/#ssh slave1</span><br></pre></td></tr></table></figure></p>
+<p>这个时候master应该能登录到slave1。</p>
+<h4 id="10、配置slaves文件"><a href="#10、配置slaves文件" class="headerlink" title="10、配置slaves文件"></a>10、配置slaves文件</h4><p>slaves文件里指定了namenode节点管理哪些datanode节点。这里仅在Namenode节点做配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $HADOOP_HOME/etc/hadoop</span><br><span class="line">vi slaves</span><br></pre></td></tr></table></figure></p>
+<p>添加所有Datanode节点名称<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br><span class="line">slave3</span><br><span class="line">slave4</span><br><span class="line">slave5</span><br><span class="line">slave6</span><br><span class="line">slave7</span><br><span class="line">slave8</span><br><span class="line">slave9</span><br></pre></td></tr></table></figure></p>
+<p>查看是否更改成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat slaves</span><br></pre></td></tr></table></figure></p>
+<h4 id="11、格式化Namenode"><a href="#11、格式化Namenode" class="headerlink" title="11、格式化Namenode"></a>11、格式化Namenode</h4><p>仅在Namenode操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure></p>
+<h4 id="六、克隆虚拟机"><a href="#六、克隆虚拟机" class="headerlink" title="六、克隆虚拟机"></a>六、克隆虚拟机</h4><p>分别按集群节点数量克隆A、B、C三类节点，然后逐一修改节点的主机名及IP地址。然后测试各个节点间ssh连接是否成功。</p>
+<h3 id="七、启动Hadoop集群"><a href="#七、启动Hadoop集群" class="headerlink" title="七、启动Hadoop集群"></a>七、启动Hadoop集群</h3><p>一切准备就绪，接下来启动Hadoop集群。先启动各虚拟机，保证各虚拟机间通信。在Namenode节点（master）运行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eacong@master: ~/hadoop/hadoop-2.9.2/etc/hadoop# start-all.sh</span><br></pre></td></tr></table></figure></p>
+<p>在master运行jps命令查看进程:<br><img src="/Blog_images/虚拟机搭建Hadoop集群/集群启动后在master运行jps.png" alt="HB-CDBS"></p>
+<p>运行命令：hdfs dfsadmin -report查看集群存活节点信息：<br><img src="/Blog_images/虚拟机搭建Hadoop集群/集群存活节点.png" alt="HB-CDBS"></p>
+<p>运行命令：hadoop dfsadmin -printTopology查看集群机架信息：<br><img src="/Blog_images/虚拟机搭建Hadoop集群/集群机架配置信息.png" alt="HB-CDBS"></p>
+<h3 id="八、集群web页面"><a href="#八、集群web页面" class="headerlink" title="八、集群web页面"></a>八、集群web页面</h3><p>在浏览器地址栏输入：192.168.5.2：50070打开集群主页。<br><img src="/Blog_images/虚拟机搭建Hadoop集群/集群信息概览1.png" alt="HB-CDBS"></p>
+<p>地址栏输入：192.168.5.21：50075打开slave3节点主页。<br><img src="/Blog_images/虚拟机搭建Hadoop集群/数据节点的web页面.png" alt="HB-CDBS"></p>
+<h3 id="九、拓展Hadoop集群节点"><a href="#九、拓展Hadoop集群节点" class="headerlink" title="九、拓展Hadoop集群节点"></a>九、拓展Hadoop集群节点</h3><h4 id="1、克隆slave1虚拟机的完整副本打开，选择“我已复制该虚拟机”，不可选“我已移动该虚拟机”"><a href="#1、克隆slave1虚拟机的完整副本打开，选择“我已复制该虚拟机”，不可选“我已移动该虚拟机”" class="headerlink" title="1、克隆slave1虚拟机的完整副本打开，选择“我已复制该虚拟机”，不可选“我已移动该虚拟机”"></a>1、克隆slave1虚拟机的完整副本打开，选择“我已复制该虚拟机”，不可选“我已移动该虚拟机”</h4><h4 id="2、修改主机名（重启节点生效）"><a href="#2、修改主机名（重启节点生效）" class="headerlink" title="2、修改主机名（重启节点生效）"></a>2、修改主机名（重启节点生效）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hostname</span><br></pre></td></tr></table></figure>
+<h4 id="3、修改IP地址"><a href="#3、修改IP地址" class="headerlink" title="3、修改IP地址"></a>3、修改IP地址</h4><p>修改配置文件中的IP地址为新增加节点的IP地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/network/interfaces</span><br></pre></td></tr></table></figure></p>
+<p>重启网卡使修改生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ifdown eth0</span><br><span class="line">sudo ifup eth0</span><br></pre></td></tr></table></figure></p>
+<h4 id="4、修改各节点的hosts文件"><a href="#4、修改各节点的hosts文件" class="headerlink" title="4、修改各节点的hosts文件"></a>4、修改各节点的hosts文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br></pre></td></tr></table></figure>
+<p>在配置文件中添加增加节点的主机名和IP地址，重启生效。</p>
+<h4 id="5、修改Namenode节点的slaves配置文件"><a href="#5、修改Namenode节点的slaves配置文件" class="headerlink" title="5、修改Namenode节点的slaves配置文件"></a>5、修改Namenode节点的slaves配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim $HADOOP_HOME/etc/hadoop/slaves</span><br></pre></td></tr></table></figure>
+<p>在配置文件中添加所增加的Datanode的主机名</p>
+<h4 id="6、重启Hadoop集群"><a href="#6、重启Hadoop集群" class="headerlink" title="6、重启Hadoop集群"></a>6、重启Hadoop集群</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eacong@master: ~/hadoop/hadoop-2.9.2/etc/hadoop# start-all.sh</span><br></pre></td></tr></table></figure>
+<h3 id="十、注意事项"><a href="#十、注意事项" class="headerlink" title="十、注意事项"></a>十、注意事项</h3><h4 id="1、集群启动后存活节点数量与集群Datanode数量不一致"><a href="#1、集群启动后存活节点数量与集群Datanode数量不一致" class="headerlink" title="1、集群启动后存活节点数量与集群Datanode数量不一致"></a>1、集群启动后存活节点数量与集群Datanode数量不一致</h4><p>问题描述：每一次format主节点Namenode，dfs/name/current目录下的VERSION文件会产生新的clusterID、namespaceID。但是如果子节点的dfs/name/current仍存在，hadoop格式化时就不会重建该目录，因此形成子节点的clusterID、namespaceID与主节点（即namenode节点）的clusterID、namespaceID不一致。最终导致hadoop启动失败。<br>解决方式：删除各Datanode节点的current文件夹，重启启动集群后会重新加载该文件。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">JAVA</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚拟机</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/03/虚拟机搭建Hadoop集群/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/12/30/论文学习_基于HDFS的云数据存储系统/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">论文学习-《基于HDFS的云数据备份系统》</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验环境准备"><span class="toc-number">1.</span> <span class="toc-text">实验环境准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop实验集群拓扑设计"><span class="toc-number">2.</span> <span class="toc-text">Hadoop实验集群拓扑设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一、虚拟机安装"><span class="toc-number">3.</span> <span class="toc-text">一、虚拟机安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、更改虚拟机主机名"><span class="toc-number">3.1.</span> <span class="toc-text">1、更改虚拟机主机名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、设置静态IP地址"><span class="toc-number">3.2.</span> <span class="toc-text">2、设置静态IP地址</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、更新源"><span class="toc-number">4.</span> <span class="toc-text">二、更新源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、安装和启动SSH服务"><span class="toc-number">5.</span> <span class="toc-text">三、安装和启动SSH服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、安装Hadoop及Java环境"><span class="toc-number">6.</span> <span class="toc-text">四、安装Hadoop及Java环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、创建工作目录"><span class="toc-number">6.1.</span> <span class="toc-text">1、创建工作目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、导入Hadoop及Java文件"><span class="toc-number">6.2.</span> <span class="toc-text">2、导入Hadoop及Java文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、解压Hadoop和Java文件"><span class="toc-number">6.3.</span> <span class="toc-text">3、解压Hadoop和Java文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、配置环境变量"><span class="toc-number">6.4.</span> <span class="toc-text">4、配置环境变量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、配置Hadoop"><span class="toc-number">7.</span> <span class="toc-text">五、配置Hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、创建工作目录-1"><span class="toc-number">7.1.</span> <span class="toc-text">1、创建工作目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、新建topology-data文件并添加如下内容-仅在Namenode节点操作即可-："><span class="toc-number">7.2.</span> <span class="toc-text">2、新建topology.data文件并添加如下内容(仅在Namenode节点操作即可)：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、新建脚本文件topology-sh-仅在Namenode节点操作即可"><span class="toc-number">7.3.</span> <span class="toc-text">3、新建脚本文件topology.sh(仅在Namenode节点操作即可)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、配置core-site-xml文件"><span class="toc-number">7.4.</span> <span class="toc-text">4、配置core-site.xml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、给topology-sh和topology-data添加执行权限。"><span class="toc-number">7.5.</span> <span class="toc-text">5、给topology.sh和topology.data添加执行权限。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6、配置hdfs-site-xml文件"><span class="toc-number">7.6.</span> <span class="toc-text">6、配置hdfs-site.xml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7、配置mapred-site-xml文件"><span class="toc-number">7.7.</span> <span class="toc-text">7、配置mapred-site.xml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8、配置JAVA-HOME环境变量"><span class="toc-number">7.8.</span> <span class="toc-text">8、配置JAVA_HOME环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9、编辑hosts文件"><span class="toc-number">7.9.</span> <span class="toc-text">9、编辑hosts文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10、配置slaves文件"><span class="toc-number">7.10.</span> <span class="toc-text">10、配置slaves文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11、格式化Namenode"><span class="toc-number">7.11.</span> <span class="toc-text">11、格式化Namenode</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#六、克隆虚拟机"><span class="toc-number">7.12.</span> <span class="toc-text">六、克隆虚拟机</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七、启动Hadoop集群"><span class="toc-number">8.</span> <span class="toc-text">七、启动Hadoop集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#八、集群web页面"><span class="toc-number">9.</span> <span class="toc-text">八、集群web页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#九、拓展Hadoop集群节点"><span class="toc-number">10.</span> <span class="toc-text">九、拓展Hadoop集群节点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、克隆slave1虚拟机的完整副本打开，选择“我已复制该虚拟机”，不可选“我已移动该虚拟机”"><span class="toc-number">10.1.</span> <span class="toc-text">1、克隆slave1虚拟机的完整副本打开，选择“我已复制该虚拟机”，不可选“我已移动该虚拟机”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、修改主机名（重启节点生效）"><span class="toc-number">10.2.</span> <span class="toc-text">2、修改主机名（重启节点生效）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、修改IP地址"><span class="toc-number">10.3.</span> <span class="toc-text">3、修改IP地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、修改各节点的hosts文件"><span class="toc-number">10.4.</span> <span class="toc-text">4、修改各节点的hosts文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、修改Namenode节点的slaves配置文件"><span class="toc-number">10.5.</span> <span class="toc-text">5、修改Namenode节点的slaves配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6、重启Hadoop集群"><span class="toc-number">10.6.</span> <span class="toc-text">6、重启Hadoop集群</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#十、注意事项"><span class="toc-number">11.</span> <span class="toc-text">十、注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、集群启动后存活节点数量与集群Datanode数量不一致"><span class="toc-number">11.1.</span> <span class="toc-text">1、集群启动后存活节点数量与集群Datanode数量不一致</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -223,9 +437,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

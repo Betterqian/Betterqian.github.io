@@ -6,18 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: JAVA | 刘谦的博客</title>
+  <title>论文学习-《基于HDFS的云数据备份系统》 | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个机智的菜鸟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘谦的博客">
-<meta property="og:url" content="http://yoursite.com/tags/JAVA/index.html">
+  <meta name="description" content="本文主要简单介绍了基于HDFS的云存储系统。">
+<meta name="keywords" content="HDFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文学习-《基于HDFS的云数据备份系统》">
+<meta property="og:url" content="http://yoursite.com/2018/12/30/论文学习_基于HDFS的云数据存储系统/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="一个机智的菜鸟">
+<meta property="og:description" content="本文主要简单介绍了基于HDFS的云存储系统。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/Blog_images/论文学习_基于HDFS的云数据存储系统/HB-CDBS.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/论文学习_基于HDFS的云数据存储系统/Backup%20and%20Restore%20process%20of%20client.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/论文学习_基于HDFS的云数据存储系统/备份信息数据字段.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/论文学习_基于HDFS的云数据存储系统/阈值.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/论文学习_基于HDFS的云数据存储系统/小文件分别上传下载与打包上传下载的比较.png">
+<meta property="og:updated_time" content="2019-02-02T16:43:10.309Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刘谦的博客">
-<meta name="twitter:description" content="一个机智的菜鸟">
+<meta name="twitter:title" content="论文学习-《基于HDFS的云数据备份系统》">
+<meta name="twitter:description" content="本文主要简单介绍了基于HDFS的云存储系统。">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/论文学习_基于HDFS的云数据存储系统/HB-CDBS.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -143,36 +151,87 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-论文学习_基于HDFS的云数据存储系统" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/30/JAVA实现HDFS系统文件的上传下载/" class="archive-article-date">
-  	<time datetime="2018-12-30T09:20:58.522Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-30</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/30/JAVA实现HDFS系统文件的上传下载/">JAVA 实现 HDFS 文件的上传下载</a>
+    <h1 class="article-title" itemprop="name">
+      论文学习-《基于HDFS的云数据备份系统》
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/12/30/论文学习_基于HDFS的云数据存储系统/" class="archive-article-date">
+  	<time datetime="2018-12-30T09:20:58.532Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要简单介绍了基于HDFS的云存储系统。<br><a id="more"></a></p>
+<h4 id="目前较常见的网络数据备份系统按架构不同可分为："><a href="#目前较常见的网络数据备份系统按架构不同可分为：" class="headerlink" title="目前较常见的网络数据备份系统按架构不同可分为："></a>目前较常见的网络数据备份系统按架构不同可分为：</h4><ul>
+<li>基于网络附加存储结构</li>
+<li>基于局域网结构</li>
+<li>基于SAN结构的LAN-Free结构和Server-Free结构</li>
+</ul>
+<h4 id="云存储的特点"><a href="#云存储的特点" class="headerlink" title="云存储的特点"></a>云存储的特点</h4><ul>
+<li>1：提供完整的数据存储服务，用户可得到只能的备份软件及管理完善的存储容量；</li>
+<li>2：云存储仅对数据进行备份，用户不必担心失去对原始数据的控制；</li>
+<li>3：云存储服务具有价格上的优势，备份相同规模的数据，云存储所需的费用比购置存储设备建立数据中心成本低很多；</li>
+</ul>
+<h4 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h4><p>Hadoop是Apache下的一个开源云计算基础软件项目，目前已得到广泛应用。Hadoop的基础组件HDFS（hadoop distributed file system），是模仿Google的GFS设计思路开发的专门针对廉价硬件设计的分布式文件系统，在软件层内置数据容错能力，可应用于云存储系统的创建开发，与现有的分布式系统最大区别为高容错性和低成本。</p>
+<h3 id="HB-CDBS"><a href="#HB-CDBS" class="headerlink" title="HB-CDBS"></a>HB-CDBS</h3><h4 id="HB-CDBS构成："><a href="#HB-CDBS构成：" class="headerlink" title="HB-CDBS构成："></a>HB-CDBS构成：</h4><ul>
+<li>客户端</li>
+<li>备份服务器</li>
+<li>HDFS集群</li>
+</ul>
+<p><img src="/Blog_images/论文学习_基于HDFS的云数据存储系统/HB-CDBS.png" alt="HB-CDBS"></p>
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><h5 id="客户端文件备份恢复过程"><a href="#客户端文件备份恢复过程" class="headerlink" title="客户端文件备份恢复过程"></a>客户端文件备份恢复过程</h5><p><img src="/Blog_images/论文学习_基于HDFS的云数据存储系统/Backup and Restore process of client.png" alt="客户端备份恢复过程"></p>
+<h4 id="备份服务器"><a href="#备份服务器" class="headerlink" title="备份服务器"></a>备份服务器</h4><h5 id="备份数据信息表"><a href="#备份数据信息表" class="headerlink" title="备份数据信息表"></a>备份数据信息表</h5><p><img src="/Blog_images/论文学习_基于HDFS的云数据存储系统/备份信息数据字段.png" alt="备份信息数据字段"></p>
+<h5 id="上传算法CDUA-cloud-data-upload-algorithm"><a href="#上传算法CDUA-cloud-data-upload-algorithm" class="headerlink" title="上传算法CDUA(cloud data upload algorithm)"></a>上传算法CDUA(cloud data upload algorithm)</h5><p>CDUA 算法先检测文件大小是否大于等于阈值，是则上传该文件到HDFS集群，上传成功后将文件备份数据信息表中对应的上传标志位置为真，填写上传文件名(客户端上传文件名称相同)，删除备份服务器上的文件。否则读取备份文件信息表，得到所有未上传备份文件的信息，计算全部未上传文件的大小，若大于等于阈值，则将所有未上传文件打包成一个文件，按照“文件名 1-文件 2-…-文件名 n”的方式对该文件命名；如果全部为上传文件大小依然小于阈值，则退出。</p>
+<p><img src="/Blog_images/论文学习_基于HDFS的云数据存储系统/阈值.png" alt="阈值表达式"></p>
+<p>〖hdfs〗_size为 HDFS 集群存储空间大小； cc_n为客户端集群个数;为 HDFS 集群中数据备份副本的个数；rp_n为默认集群中客户节点个数；c_n为可分配给客户端的存储块数； λ 为调节系数。</p>
+<h5 id="备份服务器作为客户端与备份集群的桥梁"><a href="#备份服务器作为客户端与备份集群的桥梁" class="headerlink" title="备份服务器作为客户端与备份集群的桥梁"></a>备份服务器作为客户端与备份集群的桥梁</h5><ul>
+<li>1：备份服务器可屏蔽客户端对备份集群的直接访问，从而提高备份集群的安全性，同时在备份服<br>务器和客户端间通过防火墙、安全信道等技术实现数据安全，进而保证整个系统的安全;</li>
+<li>2：备份服务器可暂存数据，并根据备份集群的负载和网络状况决定在合适的时间上传数据，从而保证备份集群的负载平衡;</li>
+<li>3：虽然在特殊情况下，备份服务器由于大量客户端的备份/恢复请求可能成为系统的瓶颈，但通过应用高性能的服务器作为备份服务器及客户端的合理调度可最大限度地避免该情况发生;</li>
+<li>4：向HDFS集群上传、下载文件需要在计算机上安装Hadoop特定组件，这对数量众多、水平参差不齐的客户实现较难，通过在备份服务器上收集用户需备份的数据，并在其上安装Hadoop组件易于实现备份、恢复功能，可充分发挥HDFS的功能。</li>
+</ul>
+<h4 id="HDFS集群"><a href="#HDFS集群" class="headerlink" title="HDFS集群"></a>HDFS集群</h4><p>采用Master/Slave结构，由一个Namenode和一定数量的Datanodes组成。Nameno-de作为中心服务器负责管理文件系统的名字空间(namespace)及客户对文件的访问。Namenode由云中具有较高性能的服务器配置而成。DataNode用于存储数据，由大量廉价计算机配置而成，并可根据备份数据的规模进行动态扩展。备份时文件被分成一个或多个数据块，这些块存储在一组Datanode上。Datanode负责对文件系统客户端的读写请求进行处理，并在Namenode统一调度下进行数据块的创建、删除和复制等操作。</p>
+<h4 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h4><h5 id="小文件分别上传下载与打包上传下载的比较"><a href="#小文件分别上传下载与打包上传下载的比较" class="headerlink" title="小文件分别上传下载与打包上传下载的比较"></a>小文件分别上传下载与打包上传下载的比较</h5><p><img src="/Blog_images/论文学习_基于HDFS的云数据存储系统/小文件分别上传下载与打包上传下载的比较.png" alt="小文件分别上传下载与打包上传下载的比较"></p>
+<p><em>无论是上传和下载，对小文件打包的策略都极大节约了相应操作的时间，充分应用了HDFS系统的特性。</em></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -180,27 +239,132 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">JAVA</a>
-        		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/12/30/论文学习_基于HDFS的云数据存储系统/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/02/03/虚拟机搭建Hadoop集群/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          虚拟机搭建Hadoop集群
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2018/12/30/JAVA实现HDFS系统文件的上传下载/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JAVA 实现 HDFS 文件的上传下载</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#目前较常见的网络数据备份系统按架构不同可分为："><span class="toc-number">1.</span> <span class="toc-text">目前较常见的网络数据备份系统按架构不同可分为：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#云存储的特点"><span class="toc-number">2.</span> <span class="toc-text">云存储的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HDFS简介"><span class="toc-number">3.</span> <span class="toc-text">HDFS简介</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#HB-CDBS"><span class="toc-number"></span> <span class="toc-text">HB-CDBS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HB-CDBS构成："><span class="toc-number">1.</span> <span class="toc-text">HB-CDBS构成：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端"><span class="toc-number">2.</span> <span class="toc-text">客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#客户端文件备份恢复过程"><span class="toc-number">2.1.</span> <span class="toc-text">客户端文件备份恢复过程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#备份服务器"><span class="toc-number">3.</span> <span class="toc-text">备份服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#备份数据信息表"><span class="toc-number">3.1.</span> <span class="toc-text">备份数据信息表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#上传算法CDUA-cloud-data-upload-algorithm"><span class="toc-number">3.2.</span> <span class="toc-text">上传算法CDUA(cloud data upload algorithm)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#备份服务器作为客户端与备份集群的桥梁"><span class="toc-number">3.3.</span> <span class="toc-text">备份服务器作为客户端与备份集群的桥梁</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HDFS集群"><span class="toc-number">4.</span> <span class="toc-text">HDFS集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#性能测试"><span class="toc-number">5.</span> <span class="toc-text">性能测试</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小文件分别上传下载与打包上传下载的比较"><span class="toc-number">5.1.</span> <span class="toc-text">小文件分别上传下载与打包上传下载的比较</span></a></li></ol></li></ol>
+                    </li></div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -223,9 +387,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
