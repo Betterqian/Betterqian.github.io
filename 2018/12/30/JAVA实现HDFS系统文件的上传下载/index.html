@@ -17,10 +17,12 @@
 <meta property="og:description" content="这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png">
-<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/浏览器查看文件状态.png">
-<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/master查看文件目录.png">
 <meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/控制台查看文件目录.png">
-<meta property="og:updated_time" content="2019-02-03T09:55:00.645Z">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/web页面集群文件列表.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件列表.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件对应块及机架.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件对应块信息.png">
+<meta property="og:updated_time" content="2019-02-03T10:12:07.497Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA 实现 HDFS 文件的上传下载">
 <meta name="twitter:description" content="这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。">
@@ -173,10 +175,8 @@
         <p>这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。<br><a id="more"></a></p>
 <h4 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h4><p>Hadoop集群：一个NameNode节点，三个DataNode节点<br>MyEclipse：myeclipse-pro-2014-GA</p>
 <h3 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h3><p>依次启动各虚拟机节点，在master节点运行命令：start-all.sh<br><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png" alt="集群启动"></p>
-<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>在集群文件根目录 / 下新建一个movie文件夹，将本机 末日崩塌.mp4 文件上传至集群movie文件夹下，再将本机ubuntu-14.04.5-server-amd64.iso文件上传至Ubuntu_images文件夹，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private static String LOCAL_PATH = &quot;E:/installation_package/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String HDFS_PATH = &quot;/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>在集群文件根目录 / 下新建一个Ubuntu_images文件夹，将本机ubuntu-14.04.5-server-amd64.iso文件上传至Ubuntu_images文件夹，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private static String LOCAL_PATH = &quot;E:/installation_package/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String HDFS_PATH = &quot;/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(new URI(MASTER_URI), conf);</span><br><span class="line">InputStream in = new FileInputStream(LOCAL_PATH);</span><br><span class="line">OutputStream out = fs.create(new Path(HDFS_PATH), new Progressable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void progress() &#123;</span><br><span class="line">        System.out.println(&quot;上传文件完成！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">IOUtils.copyBytes(in, out, conf);</span><br></pre></td></tr></table></figure>
-<h4 id="打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统"><a href="#打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统" class="headerlink" title="打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统"></a>打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/浏览器查看文件状态.png" alt="浏览器查看文件状态"></p>
-<h4 id="在master节点运行命令：-hdfs-dfs-–ls-查看文件状态：此处电影中文名乱码"><a href="#在master节点运行命令：-hdfs-dfs-–ls-查看文件状态：此处电影中文名乱码" class="headerlink" title="在master节点运行命令： hdfs dfs –ls / 查看文件状态：此处电影中文名乱码"></a>在master节点运行命令： hdfs dfs –ls / 查看文件状态：此处电影中文名乱码</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/master查看文件目录.png" alt="master查看文件目录"></p>
 <h4 id="在MyEclipse端查看文件目录代码如下："><a href="#在MyEclipse端查看文件目录代码如下：" class="headerlink" title="在MyEclipse端查看文件目录代码如下："></a>在MyEclipse端查看文件目录代码如下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">private static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br><span class="line">private static String HDFS_PATH = &quot;/&quot;;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(URI.create(MASTER_URI), conf);</span><br><span class="line">Path path = new Path(HDFS_PATH);</span><br><span class="line">if(fs.exists(path))&#123;</span><br><span class="line">	FileStatus[] list = fs.listStatus(path);</span><br><span class="line">	System.out.println(&quot;ls: &quot; + HDFS_PATH);</span><br><span class="line">	System.out.println(&quot;==========================================================&quot;);</span><br><span class="line">	for (FileStatus f : list) &#123;</span><br><span class="line">		System.out.printf(&quot;name: %s, folder: %s, size: %d\n&quot;, f.getPath(), f.isDirectory(), f.getLen());</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(&quot;==========================================================&quot;);</span><br><span class="line">	fs.close();</span><br><span class="line">&#125;else</span><br><span class="line">	System.out.print(HDFS_PATH +&quot;:文件目录不存在！&quot;);</span><br></pre></td></tr></table></figure>
 <h4 id="控制台输出如下："><a href="#控制台输出如下：" class="headerlink" title="控制台输出如下："></a>控制台输出如下：</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/控制台查看文件目录.png" alt="控制台查看文件目录"></p>
@@ -184,6 +184,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(new URI(MASTER_URI), conf);</span><br><span class="line">InputStream in = fs.open(new Path(HDFS_PATH));</span><br><span class="line">OutputStream out = new FileOutputStream(LOCAL_PATH);</span><br><span class="line">IOUtils.copyBytes(in, out, conf);</span><br><span class="line">System.out.println(&quot;下载文件完成！&quot;);</span><br></pre></td></tr></table></figure>
 <h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static String HDFS_PATH = &quot;/movie&quot;;</span><br><span class="line">static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(URI.create(MASTER_URI), conf);</span><br><span class="line">Path path = new Path(HDFS_PATH);</span><br><span class="line">		</span><br><span class="line">//判断路径文件是否存在，存在即删除，不存在即返回文件不存在</span><br><span class="line">if(fs.exists(path))&#123;</span><br><span class="line">	fs.deleteOnExit(path);</span><br><span class="line">	System.out.print(&quot;删除：&quot;+ HDFS_PATH +&quot;成功！&quot;);</span><br><span class="line">	fs.close();</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">	System.out.print(HDFS_PATH+&quot;:文件不存在！&quot;);</span><br></pre></td></tr></table></figure>
+<h3 id="查看集群文件"><a href="#查看集群文件" class="headerlink" title="查看集群文件"></a>查看集群文件</h3><h4 id="打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统"><a href="#打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统" class="headerlink" title="打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统"></a>打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/web页面集群文件列表.png" alt="浏览器查看文件状态"></p>
+<h4 id="在master节点运行命令：-hdfs-dfs-–ls-查看文件状态："><a href="#在master节点运行命令：-hdfs-dfs-–ls-查看文件状态：" class="headerlink" title="在master节点运行命令： hdfs dfs –ls / 查看文件状态："></a>在master节点运行命令： hdfs dfs –ls / 查看文件状态：</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件列表.png" alt="master查看文件目录"></p>
+<h4 id="在master节点运行命令查看文件块对应机架信息："><a href="#在master节点运行命令查看文件块对应机架信息：" class="headerlink" title="在master节点运行命令查看文件块对应机架信息："></a>在master节点运行命令查看文件块对应机架信息：</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件对应块及机架.png" alt="master查看文件目录"></p>
+<h4 id="查看集群文件对应块信息"><a href="#查看集群文件对应块信息" class="headerlink" title="查看集群文件对应块信息"></a>查看集群文件对应块信息</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件对应块信息.png" alt="master查看文件目录"></p>
+
       
 
       
@@ -291,18 +296,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/12/30/论文学习_基于HDFS的云数据存储系统/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/12/30/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          论文学习-《基于HDFS的云数据备份系统》
+          论文学习-《Hadoop的两大核心技术HDFS和MapReduce》
         
       </div>
     </a>
   
   
-    <a href="/2018/12/30/论文学习_《Hadoop的两大核心技术HDFS和MapReduce》/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">论文学习-《Hadoop的两大核心技术HDFS和MapReduce》</div>
+    <a href="/2018/12/30/HDFS架构/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HDFS 架构</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -329,7 +334,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#实验环境"><span class="toc-number">1.</span> <span class="toc-text">实验环境</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#启动集群"><span class="toc-number"></span> <span class="toc-text">启动集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上传文件"><span class="toc-number"></span> <span class="toc-text">上传文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统"><span class="toc-number">1.</span> <span class="toc-text">打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在master节点运行命令：-hdfs-dfs-–ls-查看文件状态：此处电影中文名乱码"><span class="toc-number">2.</span> <span class="toc-text">在master节点运行命令： hdfs dfs –ls / 查看文件状态：此处电影中文名乱码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在MyEclipse端查看文件目录代码如下："><span class="toc-number">3.</span> <span class="toc-text">在MyEclipse端查看文件目录代码如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#控制台输出如下："><span class="toc-number">4.</span> <span class="toc-text">控制台输出如下：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载文件"><span class="toc-number"></span> <span class="toc-text">下载文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除文件"><span class="toc-number"></span> <span class="toc-text">删除文件</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#实验环境"><span class="toc-number">1.</span> <span class="toc-text">实验环境</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#启动集群"><span class="toc-number"></span> <span class="toc-text">启动集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上传文件"><span class="toc-number"></span> <span class="toc-text">上传文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在MyEclipse端查看文件目录代码如下："><span class="toc-number">1.</span> <span class="toc-text">在MyEclipse端查看文件目录代码如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#控制台输出如下："><span class="toc-number">2.</span> <span class="toc-text">控制台输出如下：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载文件"><span class="toc-number"></span> <span class="toc-text">下载文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除文件"><span class="toc-number"></span> <span class="toc-text">删除文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看集群文件"><span class="toc-number"></span> <span class="toc-text">查看集群文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统"><span class="toc-number">1.</span> <span class="toc-text">打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在master节点运行命令：-hdfs-dfs-–ls-查看文件状态："><span class="toc-number">2.</span> <span class="toc-text">在master节点运行命令： hdfs dfs –ls / 查看文件状态：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在master节点运行命令查看文件块对应机架信息："><span class="toc-number">3.</span> <span class="toc-text">在master节点运行命令查看文件块对应机架信息：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看集群文件对应块信息"><span class="toc-number">4.</span> <span class="toc-text">查看集群文件对应块信息</span></a></li></ol>
                     </li></div>
                 </span>
             </div>
@@ -470,15 +475,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">论文学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">虚拟机</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JAVA</a>
               </li>
             
             <div class="clearfix"></div>
