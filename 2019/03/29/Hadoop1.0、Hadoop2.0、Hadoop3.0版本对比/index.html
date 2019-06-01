@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Hadoop | 刘谦的博客</title>
+  <title>Hadoop1.0、Hadoop2.0和Hadoop3.0 | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个机智的菜鸟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘谦的博客">
-<meta property="og:url" content="http://yoursite.com/tags/Hadoop/index.html">
+  <meta name="description" content="简要介绍Hadoop1.0、Hadoop2.0、Hadoop3.0版本之间的区别与改进。">
+<meta name="keywords" content="Hadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop1.0、Hadoop2.0和Hadoop3.0">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="一个机智的菜鸟">
+<meta property="og:description" content="简要介绍Hadoop1.0、Hadoop2.0、Hadoop3.0版本之间的区别与改进。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/Blog_images/Hadoop版本对比/hadoop.jpg">
+<meta property="og:image" content="http://yoursite.com/Blog_images/Hadoop版本对比/HDFS_Federation.png">
+<meta property="og:updated_time" content="2019-02-02T16:31:32.414Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刘谦的博客">
-<meta name="twitter:description" content="一个机智的菜鸟">
+<meta name="twitter:title" content="Hadoop1.0、Hadoop2.0和Hadoop3.0">
+<meta name="twitter:description" content="简要介绍Hadoop1.0、Hadoop2.0、Hadoop3.0版本之间的区别与改进。">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/Hadoop版本对比/hadoop.jpg">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -143,78 +148,77 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/29/虚拟机搭建Hadoop集群/" class="archive-article-date">
-  	<time datetime="2019-03-29T06:26:30.036Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/虚拟机搭建Hadoop集群/">虚拟机搭建Hadoop集群</a>
+    <h1 class="article-title" itemprop="name">
+      Hadoop1.0、Hadoop2.0和Hadoop3.0
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/" class="archive-article-date">
+        
+        <a href="/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/" class="archive-article-date">
   	<time datetime="2019-03-29T06:26:30.021Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/">Hadoop1.0、Hadoop2.0和Hadoop3.0</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>简要介绍Hadoop1.0、Hadoop2.0、Hadoop3.0版本之间的区别与改进。<br><a id="more"></a></p>
+<h3 id="Hadoop1-0"><a href="#Hadoop1-0" class="headerlink" title="Hadoop1.0"></a>Hadoop1.0</h3><blockquote>
+<p>1.0.0版本发布于2011-12-27。内核主要由HDFS和MapReduce两个系统组成，其中HDFS由一个NameNode和多个DataNode组成，MapReduce是一个离线处理框架，由编程模型（新旧API）、运行时环境（一个JobTracker和多个TaskTracker）和数据处理引擎（MapTask和ReduceTask）三部分组成。</p>
+</blockquote>
+<h3 id="Hadoop1-0存在的问题"><a href="#Hadoop1-0存在的问题" class="headerlink" title="Hadoop1.0存在的问题"></a>Hadoop1.0存在的问题</h3><h4 id="HDFS存在的问题："><a href="#HDFS存在的问题：" class="headerlink" title="HDFS存在的问题："></a>HDFS存在的问题：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NameNode单点故障，难以应用于在线场景;</span><br><span class="line">NameNode压力过大，且内存受限，制约HDFS的扩展性;</span><br><span class="line">HDFS中的权限设计不够彻底，HDFS的数据隔离性不是很好；</span><br><span class="line">HDFS大量存储小文件的话，会造成NameNode的内存压力骤增。</span><br></pre></td></tr></table></figure>
+<h4 id="MapReduce存在的问题"><a href="#MapReduce存在的问题" class="headerlink" title="MapReduce存在的问题"></a>MapReduce存在的问题</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JobTracker访问压力大，影响系统扩展性</span><br><span class="line">难以支持除MapReduce之外的计算框架，比如Spark、Storm等</span><br></pre></td></tr></table></figure>
+<h3 id="Hadoop2-0"><a href="#Hadoop2-0" class="headerlink" title="Hadoop2.0"></a>Hadoop2.0</h3><blockquote>
+<p>第一个稳定版2.2.0发布于2013-10-15。内核主要由HDFS、MapReduce和YARN三个系统组成，其中YARN是一个资源管理系统，负责集群资源管理和调度，MapReduce则是运行在YARN上的离线处理框架，它与Hadoop 1.0中的MapReduce在编程模型（新旧API）和数据处理引擎（MapTask和ReduceTask）两个方面是相同的。</p>
+</blockquote>
+<h3 id="Hadoop1-0和Hadoop2-0架构"><a href="#Hadoop1-0和Hadoop2-0架构" class="headerlink" title="Hadoop1.0和Hadoop2.0架构"></a>Hadoop1.0和Hadoop2.0架构</h3><p><img src="/Blog_images/Hadoop版本对比/hadoop.jpg" alt="HB-CDBS"></p>
+<h3 id="Hadoop1-0和Hadoop2-0的区别"><a href="#Hadoop1-0和Hadoop2-0的区别" class="headerlink" title="Hadoop1.0和Hadoop2.0的区别"></a>Hadoop1.0和Hadoop2.0的区别</h3><h4 id="从-Hadoop-整体框架角度"><a href="#从-Hadoop-整体框架角度" class="headerlink" title="从 Hadoop 整体框架角度"></a>从 Hadoop 整体框架角度</h4><p>Hadoop2.0为克服Hadoop1.0中的不足进行了下面改进：</p>
+<p>1、新增了HDFS HA机制：HA增加了<code>standbynamenode</code>进行热备份，解决了1.0的单点故障问题</p>
+<p>2、针对Hadoop1.0单NameNode制约HDFS的扩展性问题，提出<code>HDFS Federation</code>，它让多个NameNode分管不同的目录进而实现访问隔离和横向扩展；<br><img src="/Blog_images/Hadoop版本对比/HDFS_Federation.png" alt="HB-CDBS"></p>
+<p>3、新增了YARN框架：</p>
+<p>在1.0中：由一个<code>JobTracker</code>和若干个<code>TaskTracker</code>两类服务组成，其中JobTracker负责资源管理和所有作业的控制，TaskTracker负责接收来自JobTracker的命令并执行它。所以MapReduce即是任务调度框架又是计算框架，1.0中会出现JobTracker大包大揽任务过重，而且存在单点故障问题，并且容易出现OOM问题，资源分配不合理等问题。</p>
+<p>在2.0中：Master端由<code>ResourceManager</code>进行资源管理调度，由<code>ApplicationMaster</code>进行任务管理和任务监控。Slave端由NodeManager替代TaskTracker进行具体任务的执行，所以MapReduce2.0只是一个计算框架，具体资源调度全部交给Yarn框架。</p>
+<h4 id="从-MapReduce-角度"><a href="#从-MapReduce-角度" class="headerlink" title="从 MapReduce 角度"></a>从 MapReduce 角度</h4><p>MapReduce1.0计算框架主要由三部分组成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">编程模型（新旧API）</span><br><span class="line">数据处理引擎（一个MapTask和多个ReduceTask）</span><br><span class="line">运行时环境(一个Jobtracker和多个TaskTracker)</span><br></pre></td></tr></table></figure></p>
+<p>它的基本编程模型是将问题抽象成Map和Reduce两个阶段，其中Map阶段将输入的数据解析成key/value，迭代调用map()函数处理后，再以key/value的形式输出到本地目录，Reduce阶段将key相同的value进行规约处理，并将最终结果写到HDFS上；它的数据处理引擎由MapTask和ReduceTask组成，分别负责Map阶段逻辑和Reduce阶段的逻辑处理；它的运行时环境由一个JobTracker和若干个TaskTracker两类服务组成，其中JobTracker负责资源管理和所有作业的控制，TaskTracker负责接收来自JobTracker的命令并执行它。所以MapReduce即是任务调度框架又是计算框架，1.0中会出现JobTracker大包大揽任务过重，而且存在单点故障问题，并且容易出现OOM问题，资源分配不合理等问题。</p>
+<p>MapReducer2.0具有与MRv1相同的编程模型和数据处理引擎，唯一不同的是运行时环境。MRv2是在MRv1基础上经加工之后，运行于资源管理框架Yarn之上的MRv1。它的运行时环境不再由JobTracker和TaskTracker等服务组成，而是变为通用资源管理系统Yarn和作业控制进程ApplicationMaster，其中Yarn负责资源管理的调度而ApplicationMaster负责作业的管理。</p>
+<h3 id="Hadoop3-0"><a href="#Hadoop3-0" class="headerlink" title="Hadoop3.0"></a>Hadoop3.0</h3><blockquote>
+<p>发布于2017-12-08</p>
+</blockquote>
+<h4 id="与Hadoop2-0相关区别"><a href="#与Hadoop2-0相关区别" class="headerlink" title="与Hadoop2.0相关区别"></a>与Hadoop2.0相关区别</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1、最低Java版本要求从Java7变为Java8</span><br><span class="line">2、HDFS支持纠删码：纠删码是一种比副本存储更节省存储空间的数据持久化存储方法。</span><br><span class="line">3、YARN时间线服务v.2：（1）提高时间线服务的可扩展性、可靠性；（2）通过引入流和聚合来增强可用性。</span><br><span class="line">4、重写shell脚本：修补了许多长期存在的bug，并增加了一些新特性。</span><br><span class="line">5、支持多余2个以上的NameNodes：支持单active namenode+多standby namenode部署方式进一步提升了可用性。</span><br><span class="line">6、MapReduce本地优化提升性能。</span><br></pre></td></tr></table></figure>
+      
 
-        <div class="article-info info-on-right">
-          
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -226,19 +230,128 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/03/29/HDFS架构/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          HDFS 架构
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/03/29/HDFS读流程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HDFS 读流程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop1-0"><span class="toc-number">1.</span> <span class="toc-text">Hadoop1.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop1-0存在的问题"><span class="toc-number">2.</span> <span class="toc-text">Hadoop1.0存在的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HDFS存在的问题："><span class="toc-number">2.1.</span> <span class="toc-text">HDFS存在的问题：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MapReduce存在的问题"><span class="toc-number">2.2.</span> <span class="toc-text">MapReduce存在的问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop2-0"><span class="toc-number">3.</span> <span class="toc-text">Hadoop2.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop1-0和Hadoop2-0架构"><span class="toc-number">4.</span> <span class="toc-text">Hadoop1.0和Hadoop2.0架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop1-0和Hadoop2-0的区别"><span class="toc-number">5.</span> <span class="toc-text">Hadoop1.0和Hadoop2.0的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#从-Hadoop-整体框架角度"><span class="toc-number">5.1.</span> <span class="toc-text">从 Hadoop 整体框架角度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从-MapReduce-角度"><span class="toc-number">5.2.</span> <span class="toc-text">从 MapReduce 角度</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop3-0"><span class="toc-number">6.</span> <span class="toc-text">Hadoop3.0</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#与Hadoop2-0相关区别"><span class="toc-number">6.1.</span> <span class="toc-text">与Hadoop2.0相关区别</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -261,9 +374,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

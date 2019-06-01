@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Hadoop | 刘谦的博客</title>
+  <title>HDFS 架构 | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个机智的菜鸟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘谦的博客">
-<meta property="og:url" content="http://yoursite.com/tags/Hadoop/index.html">
+  <meta name="description" content="这篇博文介绍了学习过程中对HDFS分布式存储架构的部分理解。">
+<meta name="keywords" content="HDFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDFS 架构">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/HDFS架构/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="一个机智的菜鸟">
+<meta property="og:description" content="这篇博文介绍了学习过程中对HDFS分布式存储架构的部分理解。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/Blog_images/HDFS架构/namenode和datanode.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/HDFS架构/冗余namenode.jpg">
+<meta property="og:updated_time" content="2019-02-02T16:31:23.987Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刘谦的博客">
-<meta name="twitter:description" content="一个机智的菜鸟">
+<meta name="twitter:title" content="HDFS 架构">
+<meta name="twitter:description" content="这篇博文介绍了学习过程中对HDFS分布式存储架构的部分理解。">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/HDFS架构/namenode和datanode.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -143,102 +148,225 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-HDFS架构" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/29/虚拟机搭建Hadoop集群/" class="archive-article-date">
-  	<time datetime="2019-03-29T06:26:30.036Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/虚拟机搭建Hadoop集群/">虚拟机搭建Hadoop集群</a>
+    <h1 class="article-title" itemprop="name">
+      HDFS 架构
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚拟机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/" class="archive-article-date">
+        
+        <a href="/2019/03/29/HDFS架构/" class="archive-article-date">
   	<time datetime="2019-03-29T06:26:30.021Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/">Hadoop1.0、Hadoop2.0和Hadoop3.0</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇博文介绍了学习过程中对HDFS分布式存储架构的部分理解。<br><a id="more"></a></p>
+<h3 id="设计理念"><a href="#设计理念" class="headerlink" title="设计理念"></a>设计理念</h3><blockquote>
+<p>一次写入，多次读取</p>
+</blockquote>
+<h3 id="文件存储单位"><a href="#文件存储单位" class="headerlink" title="文件存储单位"></a>文件存储单位</h3><blockquote>
+<p>block</p>
+</blockquote>
+<p>文件被划分为多个分块作为独立的存储单元，分块大小默认为64MB，很多情况下为128MB（要比磁盘块的512比特大是为了最小化寻址开销）。</p>
+<blockquote>
+<p>packet</p>
+</blockquote>
+<p>client端向DataNode，或DataNode的PipLine之间传数据的基本单位，默认64KB。<br><!-- more--></p>
+<blockquote>
+<p>chunk</p>
+</blockquote>
+<p>client端向DataNode，或DataNode的PipLine之间进行数据校验的基本单位，默认512Byte。</p>
+<h3 id="Namenode和Datanode节点"><a href="#Namenode和Datanode节点" class="headerlink" title="Namenode和Datanode节点"></a>Namenode和Datanode节点</h3><p><img src="/Blog_images/HDFS架构/namenode和datanode.png" alt="HB-CDBS"></p>
+<h3 id="Namenode冗余备份"><a href="#Namenode冗余备份" class="headerlink" title="Namenode冗余备份"></a>Namenode冗余备份</h3><p><img src="/Blog_images/HDFS架构/冗余namenode.jpg" alt="HB-CDBS"></p>
+<ul>
+<li>原因</li>
+</ul>
+<blockquote>
+<p>作为文件系统的管理员，没有namenode，文件系统将无法使用。如果运行namenode服务的机器毁坏，文件系统上所有的文件将会丢失，且不知道如何根据datanode的数据块来重建文件。</p>
+</blockquote>
+<ul>
+<li>备份机制一</li>
+</ul>
+<blockquote>
+<p>备份保存文件系统元数据的文件。一般配置为：将文件系统元数据写入本地磁盘的同时，写入一个远程挂载的网络文件系统NFS。</p>
+</blockquote>
+<ul>
+<li>备份机制二</li>
+</ul>
+<blockquote>
+<p>运行一个辅助的namenode，但它不能用作namenode。辅助的namenode通过编辑日志定期合并命名空间镜像。它会保存合并后的命名空间镜像的副本，并在namenode发生故障时启用。</p>
+</blockquote>
+<p><em>辅助namenode保存的状态总是滞后于主节点，一般情况融合两种机制，发生故障时，把存储在NFS上的namenode元数据复制到辅助namenode上，并将其作为新的主namenode运行。</em></p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/29/HDFS架构/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/03/29/HDFS写流程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          HDFS 写流程
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hadoop1.0、Hadoop2.0和Hadoop3.0</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计理念"><span class="toc-number">1.</span> <span class="toc-text">设计理念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件存储单位"><span class="toc-number">2.</span> <span class="toc-text">文件存储单位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namenode和Datanode节点"><span class="toc-number">3.</span> <span class="toc-text">Namenode和Datanode节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namenode冗余备份"><span class="toc-number">4.</span> <span class="toc-text">Namenode冗余备份</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -261,9 +389,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

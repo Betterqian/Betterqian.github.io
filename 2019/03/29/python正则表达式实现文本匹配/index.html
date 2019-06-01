@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Hadoop | 刘谦的博客</title>
+  <title>Python正则表达式实现文本匹配 | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个机智的菜鸟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘谦的博客">
-<meta property="og:url" content="http://yoursite.com/tags/Hadoop/index.html">
+  <meta name="description" content="前期Hadoop集群批量文件操作生成了大量日志文件，接着对这些日志文件进行处理，筛选出日志文件中文件块的上传下载记录。Linux系统中的grep命令可直接获取文本中拥有筛选特征的文本行；也可以通过正则表达式实现对文本行的精简筛选，可过滤无用的文本行以及文本行中的无用信息。以下是通过编写python脚本运用正则表达式对日志文件进行过滤的代码。">
+<meta name="keywords" content="Python,正则表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python正则表达式实现文本匹配">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/python正则表达式实现文本匹配/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="一个机智的菜鸟">
+<meta property="og:description" content="前期Hadoop集群批量文件操作生成了大量日志文件，接着对这些日志文件进行处理，筛选出日志文件中文件块的上传下载记录。Linux系统中的grep命令可直接获取文本中拥有筛选特征的文本行；也可以通过正则表达式实现对文本行的精简筛选，可过滤无用的文本行以及文本行中的无用信息。以下是通过编写python脚本运用正则表达式对日志文件进行过滤的代码。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-24T15:38:24.576Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刘谦的博客">
-<meta name="twitter:description" content="一个机智的菜鸟">
+<meta name="twitter:title" content="Python正则表达式实现文本匹配">
+<meta name="twitter:description" content="前期Hadoop集群批量文件操作生成了大量日志文件，接着对这些日志文件进行处理，筛选出日志文件中文件块的上传下载记录。Linux系统中的grep命令可直接获取文本中拥有筛选特征的文本行；也可以通过正则表达式实现对文本行的精简筛选，可过滤无用的文本行以及文本行中的无用信息。以下是通过编写python脚本运用正则表达式对日志文件进行过滤的代码。">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -143,102 +145,200 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-python正则表达式实现文本匹配" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/29/虚拟机搭建Hadoop集群/" class="archive-article-date">
-  	<time datetime="2019-03-29T06:26:30.036Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/虚拟机搭建Hadoop集群/">虚拟机搭建Hadoop集群</a>
+    <h1 class="article-title" itemprop="name">
+      Python正则表达式实现文本匹配
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/03/29/python正则表达式实现文本匹配/" class="archive-article-date">
+  	<time datetime="2019-03-29T06:26:30.036Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前期Hadoop集群批量文件操作生成了大量日志文件，接着对这些日志文件进行处理，筛选出日志文件中文件块的上传下载记录。Linux系统中的grep命令可直接获取文本中拥有筛选特征的文本行；也可以通过正则表达式实现对文本行的精简筛选，可过滤无用的文本行以及文本行中的无用信息。以下是通过编写python脚本运用正则表达式对日志文件进行过滤的代码。<br><a id="more"></a></p>
+<h3 id="日志文本示例"><a href="#日志文本示例" class="headerlink" title="日志文本示例"></a>日志文本示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2019-01-29 21:13:58,653 INFO org.apache.hadoop.hdfs.server.namenode.FSDirectory: Quota initialization completed in 25 milliseconds</span><br><span class="line">2019-01-29 21:38:28,529 INFO org.apache.hadoop.hdfs.server.namenode.FSEditLog: Number of transactions: 18 Total time for transactions(ms): 87 Number of transactions batched in Syncs: 1185 Number of syncs: 18 SyncTimes(ms): 12</span><br><span class="line">2019-01-29 21:41:53,848 INFO org.apache.hadoop.hdfs.StateChange: BLOCK* allocate blk_1073742118_1294, replicas=192.168.5.23:50010, 192.168.5.12:50010 for /user/dr.who/randomFiles/1.out</span><br><span class="line">2019-01-29 21:42:08,604 INFO org.apache.hadoop.hdfs.StateChange: DIR* completeFile: /user/dr.who/randomFiles/7.out is closed by DFSClient_NONMAPREDUCE_-351165202_28</span><br><span class="line">2019-01-29 21:42:30,160 INFO org.apache.hadoop.hdfs.server.namenode.FSNamesystem: BLOCK* blk_1073742116_1292 is COMMITTED but not COMPLETE(numNodes= 0 &lt;  minimum = 1) in file /user/dr.who/randomFiles/9.out</span><br></pre></td></tr></table></figure>
+<p>需要从日志文本中获取的内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2019-01-29 21:41:53,848 INFO org.apache.hadoop.hdfs.StateChange: BLOCK* allocate blk_1073742118_1294, replicas=192.168.5.23:50010, 192.168.5.12:50010 for /user/dr.who/randomFiles/1.out</span><br></pre></td></tr></table></figure></p>
+<p>对该条日志文本进一步简化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blk_1073742118_1294 for /user/dr.who/randomFiles/1.out</span><br></pre></td></tr></table></figure></p>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(blk_[0-9]&#123;10&#125;_[0-9]&#123;4&#125;)(.*)(\sfor\s)(.*)</span><br></pre></td></tr></table></figure>
+<h3 id="编写python脚本"><a href="#编写python脚本" class="headerlink" title="编写python脚本"></a>编写python脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"># author：qianmaoo</span><br><span class="line"># 筛选出含有文件块编号的文本行的有效信息重定向到新文件:块号 for 文件名</span><br><span class="line"></span><br><span class="line">import re</span><br><span class="line">file1 = open(&apos;C:/xxx/xxx/hadoop-eacong-namenode-master.log&apos;,&apos;r&apos;)</span><br><span class="line"></span><br><span class="line"># 逐行读取文本</span><br><span class="line">lines = file1.readlines()</span><br><span class="line">file1.close()</span><br><span class="line">file2 = open(&apos;C:/xxx/xxx/new-hadoop-eacong-namenode-master.log&apos;,&apos;w+&apos;)</span><br><span class="line"></span><br><span class="line"># 编译正则表达式，生成一个正则表达式对象，供search()使用</span><br><span class="line">pattern = re.compile(r&apos;(blk_[0-9]&#123;10&#125;_[0-9]&#123;4&#125;)(.*)(\sfor\s)(.*)&apos;)</span><br><span class="line"></span><br><span class="line">for line in lines:</span><br><span class="line">	match_obj = pattern.search(line)</span><br><span class="line">	if match_obj:</span><br><span class="line">		print(match_obj.group(1),match_obj.group(3),match_obj.group(4))</span><br><span class="line">		file2.writelines(match_obj.group(1))</span><br><span class="line">		file2.writelines(match_obj.group(3))</span><br><span class="line">		file2.writelines(match_obj.group(4))</span><br><span class="line">		file2.writelines(&apos;\n&apos;)  		</span><br><span class="line">file2.close()</span><br></pre></td></tr></table></figure>
+<h3 id="重定向文本内容示例"><a href="#重定向文本内容示例" class="headerlink" title="重定向文本内容示例"></a>重定向文本内容示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">blk_1073742118_1294 for /user/dr.who/randomFiles/1.out</span><br><span class="line">blk_1073742112_1288 for /user/dr.who/randomFiles/2.out</span><br><span class="line">blk_1073742111_1287 for /user/dr.who/randomFiles/3.out</span><br><span class="line">blk_1073742113_1289 for /user/dr.who/randomFiles/4.out</span><br></pre></td></tr></table></figure>
+<p>初学python编程语言及正则表达式，更多文本过滤方式及代码将后续持续更新…</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚拟机</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">正则表达式</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/29/python正则表达式实现文本匹配/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/" class="archive-article-date">
-  	<time datetime="2019-03-29T06:26:30.021Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/03/29/论文学习_基于HDFS的云数据存储系统/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          论文学习-《基于HDFS的云数据备份系统》
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/29/JAVA实现HDFS系统文件的上传下载/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JAVA 实现 HDFS 文件的上传下载</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/">Hadoop1.0、Hadoop2.0和Hadoop3.0</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#日志文本示例"><span class="toc-number">1.</span> <span class="toc-text">日志文本示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则表达式"><span class="toc-number">2.</span> <span class="toc-text">正则表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编写python脚本"><span class="toc-number">3.</span> <span class="toc-text">编写python脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重定向文本内容示例"><span class="toc-number">4.</span> <span class="toc-text">重定向文本内容示例</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -261,9 +361,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

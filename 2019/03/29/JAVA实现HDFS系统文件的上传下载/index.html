@@ -6,18 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Hadoop | 刘谦的博客</title>
+  <title>JAVA 实现 HDFS 文件的上传下载 | 刘谦的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个机智的菜鸟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="刘谦的博客">
-<meta property="og:url" content="http://yoursite.com/tags/Hadoop/index.html">
+  <meta name="description" content="这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。">
+<meta name="keywords" content="HDFS,JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA 实现 HDFS 文件的上传下载">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/JAVA实现HDFS系统文件的上传下载/index.html">
 <meta property="og:site_name" content="刘谦的博客">
-<meta property="og:description" content="一个机智的菜鸟">
+<meta property="og:description" content="这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/控制台查看文件目录.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/web页面集群文件列表.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件列表.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件对应块及机架.png">
+<meta property="og:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件对应块信息.png">
+<meta property="og:updated_time" content="2019-02-03T10:12:07.497Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="刘谦的博客">
-<meta name="twitter:description" content="一个机智的菜鸟">
+<meta name="twitter:title" content="JAVA 实现 HDFS 文件的上传下载">
+<meta name="twitter:description" content="这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。">
+<meta name="twitter:image" content="http://yoursite.com/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png">
   
     <link rel="alternative" href="/atom.xml" title="刘谦的博客" type="application/atom+xml">
   
@@ -143,102 +152,208 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-JAVA实现HDFS系统文件的上传下载" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/29/虚拟机搭建Hadoop集群/" class="archive-article-date">
-  	<time datetime="2019-03-29T06:26:30.036Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/虚拟机搭建Hadoop集群/">虚拟机搭建Hadoop集群</a>
+    <h1 class="article-title" itemprop="name">
+      JAVA 实现 HDFS 文件的上传下载
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/03/29/JAVA实现HDFS系统文件的上传下载/" class="archive-article-date">
+  	<time datetime="2019-03-29T06:26:30.036Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇博客分享了在搭建集群过程中我用于上传下载实验文件的Java代码。<br><a id="more"></a></p>
+<h4 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h4><p>Hadoop集群：一个NameNode节点，三个DataNode节点<br>MyEclipse：myeclipse-pro-2014-GA</p>
+<h3 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h3><p>依次启动各虚拟机节点，在master节点运行命令：start-all.sh<br><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/集群启动.png" alt="集群启动"></p>
+<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>在集群文件根目录 / 下新建一个Ubuntu_images文件夹，将本机ubuntu-14.04.5-server-amd64.iso文件上传至Ubuntu_images文件夹，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private static String LOCAL_PATH = &quot;E:/installation_package/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String HDFS_PATH = &quot;/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(new URI(MASTER_URI), conf);</span><br><span class="line">InputStream in = new FileInputStream(LOCAL_PATH);</span><br><span class="line">OutputStream out = fs.create(new Path(HDFS_PATH), new Progressable() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void progress() &#123;</span><br><span class="line">        System.out.println(&quot;上传文件完成！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">IOUtils.copyBytes(in, out, conf);</span><br></pre></td></tr></table></figure>
+<h4 id="在MyEclipse端查看文件目录代码如下："><a href="#在MyEclipse端查看文件目录代码如下：" class="headerlink" title="在MyEclipse端查看文件目录代码如下："></a>在MyEclipse端查看文件目录代码如下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">private static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br><span class="line">private static String HDFS_PATH = &quot;/&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(URI.create(MASTER_URI), conf);</span><br><span class="line">Path path = new Path(HDFS_PATH);</span><br><span class="line">if(fs.exists(path))&#123;</span><br><span class="line">	FileStatus[] list = fs.listStatus(path);</span><br><span class="line">	System.out.println(&quot;ls: &quot; + HDFS_PATH);</span><br><span class="line">	System.out.println(&quot;==========================================================&quot;);</span><br><span class="line">	for (FileStatus f : list) &#123;</span><br><span class="line">		System.out.printf(&quot;name: %s, folder: %s, size: %d\n&quot;, f.getPath(), f.isDirectory(), f.getLen());</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(&quot;==========================================================&quot;);</span><br><span class="line">	fs.close();</span><br><span class="line">&#125;else</span><br><span class="line">	System.out.print(HDFS_PATH +&quot;:文件目录不存在！&quot;);</span><br></pre></td></tr></table></figure>
+<h4 id="控制台输出如下："><a href="#控制台输出如下：" class="headerlink" title="控制台输出如下："></a>控制台输出如下：</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/控制台查看文件目录.png" alt="控制台查看文件目录"></p>
+<h3 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private static String LOCAL_PATH = &quot;C:/Users/Administrator/Desktop/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String HDFS_PATH = &quot;/Ubuntu_images/ubuntu-14.04.5-server-amd64.iso&quot;;</span><br><span class="line">private static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(new URI(MASTER_URI), conf);</span><br><span class="line">InputStream in = fs.open(new Path(HDFS_PATH));</span><br><span class="line">OutputStream out = new FileOutputStream(LOCAL_PATH);</span><br><span class="line">IOUtils.copyBytes(in, out, conf);</span><br><span class="line">System.out.println(&quot;下载文件完成！&quot;);</span><br></pre></td></tr></table></figure>
+<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static String HDFS_PATH = &quot;/movie&quot;;</span><br><span class="line">static String MASTER_URI = &quot;hdfs://192.168.2.201:9000&quot;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Configuration conf = new Configuration();</span><br><span class="line">FileSystem fs = FileSystem.get(URI.create(MASTER_URI), conf);</span><br><span class="line">Path path = new Path(HDFS_PATH);</span><br><span class="line">		</span><br><span class="line">//判断路径文件是否存在，存在即删除，不存在即返回文件不存在</span><br><span class="line">if(fs.exists(path))&#123;</span><br><span class="line">	fs.deleteOnExit(path);</span><br><span class="line">	System.out.print(&quot;删除：&quot;+ HDFS_PATH +&quot;成功！&quot;);</span><br><span class="line">	fs.close();</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">	System.out.print(HDFS_PATH+&quot;:文件不存在！&quot;);</span><br></pre></td></tr></table></figure>
+<h3 id="查看集群文件"><a href="#查看集群文件" class="headerlink" title="查看集群文件"></a>查看集群文件</h3><h4 id="打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统"><a href="#打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统" class="headerlink" title="打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统"></a>打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/web页面集群文件列表.png" alt="浏览器查看文件状态"></p>
+<h4 id="在master节点运行命令：-hdfs-dfs-–ls-查看文件状态："><a href="#在master节点运行命令：-hdfs-dfs-–ls-查看文件状态：" class="headerlink" title="在master节点运行命令： hdfs dfs –ls / 查看文件状态："></a>在master节点运行命令： hdfs dfs –ls / 查看文件状态：</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件列表.png" alt="master查看文件目录"></p>
+<h4 id="在master节点运行命令查看文件块对应机架信息："><a href="#在master节点运行命令查看文件块对应机架信息：" class="headerlink" title="在master节点运行命令查看文件块对应机架信息："></a>在master节点运行命令查看文件块对应机架信息：</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件对应块及机架.png" alt="master查看文件目录"></p>
+<h4 id="查看集群文件对应块信息"><a href="#查看集群文件对应块信息" class="headerlink" title="查看集群文件对应块信息"></a>查看集群文件对应块信息</h4><p><img src="/Blog_images/JAVA实现HDFS系统文件的上传下载/集群文件对应块信息.png" alt="master查看文件目录"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚拟机</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">JAVA</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/29/JAVA实现HDFS系统文件的上传下载/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/" class="archive-article-date">
-  	<time datetime="2019-03-29T06:26:30.021Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/03/29/python正则表达式实现文本匹配/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Python正则表达式实现文本匹配
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/29/虚拟机搭建Hadoop集群/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">虚拟机搭建Hadoop集群</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/Hadoop1.0、Hadoop2.0、Hadoop3.0版本对比/">Hadoop1.0、Hadoop2.0和Hadoop3.0</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#实验环境"><span class="toc-number">1.</span> <span class="toc-text">实验环境</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#启动集群"><span class="toc-number"></span> <span class="toc-text">启动集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上传文件"><span class="toc-number"></span> <span class="toc-text">上传文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在MyEclipse端查看文件目录代码如下："><span class="toc-number">1.</span> <span class="toc-text">在MyEclipse端查看文件目录代码如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#控制台输出如下："><span class="toc-number">2.</span> <span class="toc-text">控制台输出如下：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载文件"><span class="toc-number"></span> <span class="toc-text">下载文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除文件"><span class="toc-number"></span> <span class="toc-text">删除文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看集群文件"><span class="toc-number"></span> <span class="toc-text">查看集群文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#打开浏览器，在地址栏输入192-168-2-201：50070并回车，选择-Utilities-—-gt-Browse-the-file-system-查看集群文件系统"><span class="toc-number">1.</span> <span class="toc-text">打开浏览器，在地址栏输入192.168.2.201：50070并回车，选择 Utilities —&gt; Browse the file system 查看集群文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在master节点运行命令：-hdfs-dfs-–ls-查看文件状态："><span class="toc-number">2.</span> <span class="toc-text">在master节点运行命令： hdfs dfs –ls / 查看文件状态：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在master节点运行命令查看文件块对应机架信息："><span class="toc-number">3.</span> <span class="toc-text">在master节点运行命令查看文件块对应机架信息：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看集群文件对应块信息"><span class="toc-number">4.</span> <span class="toc-text">查看集群文件对应块信息</span></a></li></ol>
+                    </li></div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -261,9 +376,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
